@@ -20,7 +20,7 @@ app.use(express.json());
         let user = {
             name: req.query.name,
             phone: req.query.phone,
-            address: req.query.address
+            address: req.query.addres
         };
 
         mongoose.connect('mongodb://localhost/coustomers')
@@ -28,9 +28,7 @@ app.use(express.json());
 
 const createCoustomer = async () => {
     const coustomerSchema = new mongoose.Schema({name: String,phone: String,address: String,acc_date: {type: Date, default: Date.now}});
-
-    let Coustomer = mongoose.model('Coustomer', coustomerSchema);
-    let coustomer = new Coustomer(
+omer(
     //{name: 'test',phone: 'String',address: 'String'}
     user);
     const result1 = await coustomer.save();
