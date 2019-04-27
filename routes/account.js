@@ -8,8 +8,8 @@ router.use(express.json());
 // Creating account
 router.post('/', async (req, res) => {
     const { error } = validate(req.body);
-    let accountInfo = req.body;
     if (error) return res.status(400).send(error.details[0].message);
+    let accountInfo = req.body;
     let account = new Account(accountInfo);
     const customer = await Customer.findOneAndUpdate({ id: account.id }, {
         $push: {

@@ -7,8 +7,8 @@ router.use(express.json());
 // Creating user
 router.post('/', async (req, res) => {
     const { error } = validate(req.body);
-    let customerInfo = req.body;
     if (error) return res.status(400).send(error.details[0].message);
+    let customerInfo = req.body;
     const customer = new Customer(customerInfo);
     const result = await customer.save();
     res.send(result);

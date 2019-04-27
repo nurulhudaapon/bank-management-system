@@ -11,7 +11,7 @@ const Customer = mongoose.model(config.get('database.customer'), new mongoose.Sc
     date: {type: Date, default: Date.now},
     accounts: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'dev-account'
+        ref: config.get('database.account')
     }]
     }));
 

@@ -12,11 +12,17 @@ router.post('/', async (req, res) => {
     let depositInfo = req.body;
     const deposit = new Deposit(depositInfo);
 
-    const account = await Account.updateOne({ acn: deposit.acn }, {
+    const account = await Account.findOneAndUpdate({ acn: deposit.acn }, {
+        $push: {
+            deposits: deposit._id
+        },
         $inc: {
             current: deposit.amount
         }
-    });
+        
+    },{new: true});
+    console.log(account);
+    
 
     const result = await deposit.save();
     res.send(result);

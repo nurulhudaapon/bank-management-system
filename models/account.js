@@ -10,7 +10,11 @@ const Account = mongoose.model(config.get('database.account'), new mongoose.Sche
     date: Date,
     min: Number,
     total: Number,
-    current: {type: Number, default: 0}
+    current: {type: Number, default: 0},
+    deposits: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: config.get('database.deposit')
+    }]
     }));
 
 // Joi validation
@@ -20,7 +24,8 @@ const validateAccount = (accountInfo) => {
             id: Joi.string().length(5).required(),
             total: Joi.number().required(),
             min: Joi.number().required(),
-            date: Joi.date().required()
+            date: Joi.date().required(),
+            deposits: Joi.array()
     }
     return Joi.validate(accountInfo, schema);
 }
