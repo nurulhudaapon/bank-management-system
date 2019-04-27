@@ -1,5 +1,5 @@
 {
     "database": {
-        "con-string": "bp_db_cs"
+        "uri": "bp_db_uri"
     }
 }
