@@ -1,0 +1,17 @@
+extends ../base/main.pug
+
+block content
+    .container
+        table.table.table-striped.table-bordered
+            tr
+                th Name
+                th ACN
+                th Current
+                th Total
+            each n in accounts
+                tr
+                    td=n.name
+                    td=n.acn
+                    td
+                        h5=n.current+' Taka'
+                    td=n.total+' Taka'

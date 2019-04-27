@@ -1,0 +1,5 @@
+{
+    "database": {
+        "con-string": "bp_db_cs"
+    }
+}

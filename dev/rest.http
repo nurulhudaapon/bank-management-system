@@ -1,0 +1,43 @@
+GET http://localhost:3000/api/customer
+###
+GET http://localhost:3000/api/deposit
+###
+
+POST http://localhost:3000/api/customer
+content-type: application/json
+
+{
+    "name": "Adik",
+    "phone": "01545545644",
+    "address": "rayghjerbagasfasf",
+    "id": "12345",
+    "date": "2018-04-26",
+    "accounts": []
+}
+###
+
+PUT http://localhost:3000/api/customer/15524
+content-type: application/json
+
+{
+    "name": "Huda Apon",
+    "phone": "01545545644",
+    "address": "rayghjerbagasfasf",
+    "acn": "155246",
+    "date": "2018-04-26"
+}
+###
+
+DELETE http://localhost:3000/api/customer/12345
+###
+POST http://localhost:3000/api/account
+content-type: application/json
+
+{
+    "name": "Adik",
+    "id": "12345",
+    "date": "2018-04-26",
+    "total": 100,
+    "min": 20
+}
+###

@@ -1,0 +1,18 @@
+extends ../base/main.pug
+
+block content
+    .container
+        table.table.table-striped.table-bordered
+            tr
+                th Name
+                th ID
+                th Phone
+                th Address
+                th Join Date
+            each n in customers
+                tr
+                    td=n.name
+                    td=n.id
+                    td=n.phone
+                    td=n.address
+                    td=n.date.toDateString()

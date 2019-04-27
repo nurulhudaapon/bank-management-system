@@ -1,0 +1,9 @@
+{
+    "env": "Default",
+    "database": {
+        "uri": "mongodb://bank-ponsrik:338899a@ds145359.mlab.com:45359/coustomer_list",
+        "customer": "dev-customer",
+        "deposit": "dev-deposit",
+        "account": "dev-account"
+    }
+}
