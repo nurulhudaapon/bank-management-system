@@ -21,7 +21,7 @@ function postForm(ep) {
   let date = document.querySelector('#date').value;
   let id = document.querySelector('#id').value;
   let formData = {name, phone, address, id, date};
-  var url = 'http://localhost:3000/api/'+ep;
+  var url = '/api/'+ep;
   data = formData;
 submitter(url, data)
 }
@@ -38,7 +38,7 @@ function postAccount() {
   let name = customer.split(' - ')[0]
   let id = customer.split(' - ')[1]
   let data = {name, id, total, min, date};
-  var url = 'http://localhost:3000/api/account';
+  var url = '/api/account';
 submitter(url, data)
 }
 
@@ -55,6 +55,6 @@ function postDeposit() {
   let acn = account.split(' - ')[1]
   let data = {name, date, amount, acn, dBy, dTo};
 
-  var url = 'http://localhost:3000/api/deposit';
+  var url = '/api/deposit';
 submitter(url, data)
 }
