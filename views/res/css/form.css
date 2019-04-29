@@ -13,15 +13,15 @@
     border: 1px solid #ced4da;
     margin-bottom: 2%;
 }
-#form .form-control{
+.cform .form-control{
     border-radius:1.5rem;
 }
 .btnSubmit
 {
     border:none;
-    border-radius:1.5rem;
-    padding: 1%;
-    width: 20%;
+    border-radius:5px;
+    padding: 5px;
+    width: 80px;
     cursor: pointer;
     background: #0062cc;
     color: #fff;

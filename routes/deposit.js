@@ -2,11 +2,13 @@ const express = require('express');
 const router = express.Router();
 const { Deposit, validate } = require('../models/deposit');
 const { Account } = require('../models/account');
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 router.use(express.json());
 
 // Creating user
-router.post('/', async (req, res) => {
+router.post('/', upload.none(), async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     let depositInfo = req.body;
@@ -21,11 +23,9 @@ router.post('/', async (req, res) => {
         }
         
     },{new: true});
-    console.log(account);
-    
 
     const result = await deposit.save();
-    res.send(result);
+    res.json(result);
 });
 
 // Getting user
@@ -41,7 +41,7 @@ router.delete('/:acn', async (req, res) => {
 });
 
 // Updating user
-router.put('/:acn', async (req, res) => {
+router.put('/:acn', upload.none(), async (req, res) => {
     let newInfo = req.body;
     const result = await Deposit.updateOne({ acn: req.params.acn }, {
         $set: {
@@ -52,7 +52,7 @@ router.put('/:acn', async (req, res) => {
             acc_date: newInfo.acc_date
         }
     });
-    res.send(result);
+    res.json(result);
 });
 
 module.exports = router;

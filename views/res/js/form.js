@@ -1,30 +1,30 @@
-function submitter (url, data) {
+async function submitter (url, data) {
   const bc = document.querySelector('#body-content');
-  bc.innerHTML = '<div class="loader" style="margin-left:38%"></div>'
-  const option = {method: 'POST', body: JSON.stringify(data),headers:{'content-type': 'application/json'}}
-  // fetch(url, option)
-  // .then(res => res.text())
-  // .then(res => bc.innerText = res)
-  // .catch(error => console.error('Error:', error));
-  fetch(url, option)
-  .then(res => {if (res.ok){bc.innerText= 'SUCCESS!'} else {return res}})
-  .then(res => res.text())
-  .then(res => bc.innerText = res)
-  .catch(error => console.error('Error:', error));
+  $('#exampleModal').modal('show');
+  bc.innerHTML = `<div style='margin-left: 38%;' class='loader'></div>`
+  
+  const option = {method: 'POST', body: data}
+  try {
+		const res = await fetch(url, option);
+    const text =  await res.text();
+    if (res.ok) return bc.innerHTML = 'SUCCESS';
+		bc.innerHTML = text;
+	}
+	catch(err) {bc.innerHTML = "Error, can't load: " + err}
 }
 
-function postForm(ep) {
-  $('#exampleModal').modal('show');
-  let name = document.querySelector('#name').value;
-  let phone = document.querySelector('#phone').value;
-  let address = document.querySelector('#address').value;
-  let date = document.querySelector('#date').value;
-  let id = document.querySelector('#id').value;
-  let formData = {name, phone, address, id, date};
-  var url = '/api/'+ep;
-  data = formData;
-submitter(url, data)
-}
+
+const customerForm = document.querySelector('#customer-form').addEventListener('submit', function sender(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  submitter('/api/customer', formData)
+  });
+const accountForm = document.querySelector('#account-form').addEventListener('submit', function sender(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  submitter('/api/customer', formData)
+  });
+
 
 // for account
 function postAccount() {

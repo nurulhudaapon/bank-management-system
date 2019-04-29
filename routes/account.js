@@ -2,11 +2,13 @@ const express = require('express');
 const router = express.Router();
 const { Account, validate } = require('../models/account');
 const { Customer } = require('../models/customer');
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 router.use(express.json());
 
 // Creating account
-router.post('/', async (req, res) => {
+router.post('/', upload.none(), async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     let accountInfo = req.body;
@@ -18,12 +20,12 @@ router.post('/', async (req, res) => {
     }, { new: true });
     account.acn = `${customer.id}${customer.accounts.length}`
     const result = await account.save();
-    res.send(result);
+    res.json(result);
 });
 
 // Getting account
 router.get('/', async (req, res) => {
-    const result = await Account.find();
+    const result = await Account.find().populate('deposits');
     res.send(result);
 });
 
@@ -34,7 +36,7 @@ router.delete('/:acn', async (req, res) => {
 });
 
 // Updating account
-router.put('/:acn', async (req, res) => {
+router.put('/:acn', upload.none(), async (req, res) => {
     let newInfo = req.body;
     const result = await Account.updateOne({ acn: req.params.acn }, {
         $set: {
@@ -45,7 +47,7 @@ router.put('/:acn', async (req, res) => {
             acc_date: newInfo.acc_date
         }
     });
-    res.send(result);
+    res.json(result);
 });
 
 module.exports = router;
