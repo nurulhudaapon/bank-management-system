@@ -4,12 +4,12 @@ const Joi = require('joi');
 
 // Customer model
 const Account = mongoose.model(config.get('database.account'), new mongoose.Schema({
-    name: String,
-    id: String,
-    acn: String,
-    date: Date,
-    min: Number,
-    total: Number,
+    name: {type: String, required: true},
+    id: {type: String, required: true},
+    acn: {type: String, required: true, unique: true},
+    date: {type: Date, required: true},
+    min: {type: Number, required: true},
+    total: {type: Number, required: true},
     current: {type: Number, default: 0},
     deposits: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -20,8 +20,7 @@ const Account = mongoose.model(config.get('database.account'), new mongoose.Sche
 // Joi validation
 const validateAccount = (accountInfo) => {
     const schema = {
-            name: Joi.string().min(2).max(255).required(),
-            id: Joi.string().length(5).required(),
+            customer: Joi.string().min(2).max(255).required(),
             total: Joi.number().required(),
             min: Joi.number().required(),
             date: Joi.date().required(),

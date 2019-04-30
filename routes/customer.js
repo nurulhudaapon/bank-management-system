@@ -10,16 +10,38 @@ router.use(express.json());
 // Creating user
 router.post('/', upload.none(), async (req, res) => {
     const { error } = validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-    let customerInfo = req.body;
-    const customer = new Customer(customerInfo);
+    if (error) return res.status(406).send(error.details[0].message);
+    let customerInfo = req.body
+    let customer = new Customer(customerInfo);
+    
+    function genId (min, max) {return Math.floor(Math.random() * (max - min + 1) ) + min;}
+    try {
+        customer.id = genId(10000,99999);
+        // customer.id = '49839';
+        const result = await customer.save();
+        console.log('customer created');
+        res.json(result);
+    }
+    catch {
+    customer.id = genId(10000,99999);
     const result = await customer.save();
+    console.log('customer created in second attempt');
+
     res.json(result);
+
+    }
 });
 
 // Getting user
 router.get('/', async (req, res) => {
-    const result = await Customer.find().populate('accounts').populate('accounts.deposit');
+    const result = await Customer.find().select('-__v -_id').populate({ 
+        path: 'accounts',
+        select: '-__v -_id -id',
+        populate: {
+          path: 'deposits',
+          select: '-_id -__v -name'
+        } 
+     });
     res.json(result);
 });
 

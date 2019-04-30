@@ -5,20 +5,24 @@ const { Customer } = require('../models/customer');
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
 
-router.use(express.json());
-
 // Creating account
 router.post('/', upload.none(), async (req, res) => {
     const { error } = validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) return res.status(406).send(error.details[0].message);
     let accountInfo = req.body;
+
+    accountInfo.name = accountInfo.customer.split(' - ')[0];
+    accountInfo.id = accountInfo.customer.split(' - ')[1];
+
     let account = new Account(accountInfo);
+    
     const customer = await Customer.findOneAndUpdate({ id: account.id }, {
         $push: {
             accounts: account._id
         }
     }, { new: true });
-    account.acn = `${customer.id}${customer.accounts.length}`
+    
+    account.acn = `${customer.id}${customer.accounts.length}`;
     const result = await account.save();
     res.json(result);
 });

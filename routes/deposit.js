@@ -10,10 +10,13 @@ router.use(express.json());
 // Creating user
 router.post('/', upload.none(), async (req, res) => {
     const { error } = validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) return res.status(406).send(error.details[0].message);
     let depositInfo = req.body;
-    const deposit = new Deposit(depositInfo);
-
+    depositInfo.name = depositInfo.account.split(' - ')[0];
+    depositInfo.acn = depositInfo.account.split(' - ')[1];
+    let deposit = new Deposit(depositInfo);
+    console.log(deposit);
+    
     const account = await Account.findOneAndUpdate({ acn: deposit.acn }, {
         $push: {
             deposits: deposit._id
@@ -23,7 +26,6 @@ router.post('/', upload.none(), async (req, res) => {
         }
         
     },{new: true});
-
     const result = await deposit.save();
     res.json(result);
 });

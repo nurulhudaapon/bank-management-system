@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const customerGetter = require('../utils/customergetter');
-
 router.use(express.json());
 
 // Home
@@ -23,11 +21,27 @@ router.get('/accounts', async (req, res) => {
 });
 // My account
 router.get('/myaccount', async (req, res) => {
-    let data = await customerGetter.get(req.query.id)
-    res.render('user/myaccount', data);
-    
-    console.log(data.customer[0].accounts)
-    
+    const query = req.query.id.toString();
+    let t = query.length == 5 || query.length == 6
+    if (!t) return res.status(406).send('Invalid ID or ACN');
+    if (query.length == 5) {
+        const result = await Customer.findOne({id: query}).select('-__v -_id').populate({
+            path: 'accounts',
+            select: '-__v -_id -id',
+            populate: {
+                path: 'deposits',
+                select: '-_id -__v -name'
+            }
+        });
+        if (!result) return res.status(404).send('No customer found.')
+        res.render('user/customer', {result});
+    }
+    if (query.length == 6) {
+        
+        const result = await Account.findOne({acn: query}).select('-__v -_id').populate('deposits', '-__v -_id');
+        if (!result) return res.status(404).send('No account found.')
+        res.render('user/account', {result});
+    }
 });
 
 module.exports = router;

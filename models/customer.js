@@ -4,10 +4,10 @@ const Joi = require('joi');
 
 // Customer model
 const Customer = mongoose.model(config.get('database.customer'), new mongoose.Schema({
-    name: String,
-    phone: String,
-    address: String,
-    id: String,
+    name: {type: String, required: true},
+    phone: {type: String, required: true},
+    address: {type: String, required: true},
+    id: {type: String, required: true, unique: true},
     date: {type: Date, default: Date.now},
     accounts: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -21,7 +21,6 @@ const validateCustomer = (customerInfo) => {
             name: Joi.string().min(2).max(255).required(),
             phone: Joi.string().length(11).required(),
             address: Joi.string().min(2).max(255).required(),
-            id: Joi.string().length(5).required(),
             date: Joi.date(),
             accounts: Joi.array()
     }

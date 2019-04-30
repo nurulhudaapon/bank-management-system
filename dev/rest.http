@@ -10,7 +10,6 @@ content-type: application/json
     "name": "Adik",
     "phone": "01545545644",
     "address": "rayghjerbagasfasf",
-    "id": "12345",
     "date": "2018-04-26",
     "accounts": []
 }
@@ -28,7 +27,7 @@ content-type: application/json
 }
 ###
 
-DELETE http://localhost:3000/api/customer/12345
+DELETE http://localhost:3000/api/customer/67508
 ###
 POST http://localhost:3000/api/account
 content-type: application/json
