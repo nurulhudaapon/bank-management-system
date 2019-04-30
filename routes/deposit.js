@@ -3,7 +3,7 @@ const router = express.Router();
 const { Deposit, validate } = require('../models/deposit');
 const { Account } = require('../models/account');
 const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const upload = multer({ dest: 'public/uploads/' })
 
 router.use(express.json());
 

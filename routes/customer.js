@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const upload = multer({ dest: 'public/uploads/' })
 
 const { Customer, validate } = require('../models/customer');
 
@@ -15,21 +15,28 @@ router.post('/', upload.none(), async (req, res) => {
     let customer = new Customer(customerInfo);
     
     function genId (min, max) {return Math.floor(Math.random() * (max - min + 1) ) + min;}
-    try {
-        customer.id = genId(10000,99999);
-        // customer.id = '49839';
-        const result = await customer.save();
-        console.log('customer created');
-        res.json(result);
+
+    async function checkUniqueId() {
+        do {
+            customer.id = genId(10000,99999);
+            console.log(customer.id);
+        } while (await checkInDb(customer.id));
     }
-    catch {
-    customer.id = genId(10000,99999);
+
+
+    async function checkInDb(id) {
+            let idFound = await Customer.findOne({id});
+            console.log(idFound);
+            
+            if (idFound) return true;
+            else return false;
+    }
+
+
+    await checkUniqueId()
+    
     const result = await customer.save();
-    console.log('customer created in second attempt');
-
     res.json(result);
-
-    }
 });
 
 // Getting user

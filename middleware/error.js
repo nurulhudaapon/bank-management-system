@@ -1,5 +1,6 @@
 
 module.exports = function(err, req, res, next){
     //log
-    res.status(500).send('Something failed in the server');
+    console.error('Error: '+err.message, err);
+    res.status(500).send('Something failed in the server: '+err.message);
 }

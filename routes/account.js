@@ -3,7 +3,7 @@ const router = express.Router();
 const { Account, validate } = require('../models/account');
 const { Customer } = require('../models/customer');
 const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const upload = multer({ dest: 'public/uploads/' })
 
 // Creating account
 router.post('/', upload.none(), async (req, res) => {
