@@ -9,5 +9,6 @@ require ('./startup/routes')(app);
 
 app.use(error);
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log('Listening on port ' + port));
+const port = process.env.PORT || 80;
+const host = '127.0.0.2'
+app.listen(port, host, () => console.log('Server started at: http://'+host+'/'));
