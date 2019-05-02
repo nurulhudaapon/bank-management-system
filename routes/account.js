@@ -9,6 +9,7 @@ const upload = multer({ dest: 'public/uploads/' })
 router.post('/', upload.none(), async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(406).send(error.details[0].message);
+    
     let accountInfo = req.body;
 
     accountInfo.name = accountInfo.customer.split(' - ')[0];
@@ -22,8 +23,10 @@ router.post('/', upload.none(), async (req, res) => {
         }
     }, { new: true });
     
-    account.acn = `${customer.id}${customer.accounts.length}`;
+    account.acn = `${customer.id}${customer.accounts.length.toString().padStart(3, 0)}`;
+
     const result = await account.save();
+
     res.json(result);
 });
 

@@ -9,10 +9,14 @@ block content
                 th Phone
                 th Address
                 th Join Date
-            each n in customers
+            if customers.length != 0
+                each n in customers
+                    tr
+                        td=n.name
+                        td=n.id
+                        td=n.phone
+                        td=n.address
+                        td=n.date.toDateString()
+            else
                 tr
-                    td=n.name
-                    td=n.id
-                    td=n.phone
-                    td=n.address
-                    td=n.date.toDateString()
+                    td(colspan='5') No customers yet

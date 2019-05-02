@@ -8,10 +8,14 @@ block content
                 th ACN
                 th Current
                 th Total
-            each n in accounts
+            if accounts.length != 0
+                each n in accounts
+                    tr
+                        td=n.name
+                        td=n.acn
+                        td
+                            h5=n.current+' Taka'
+                        td=n.total+' Taka'
+            else
                 tr
-                    td=n.name
-                    td=n.acn
-                    td
-                        h5=n.current+' Taka'
-                    td=n.total+' Taka'
+                    td(colspan='4') No accounts yet

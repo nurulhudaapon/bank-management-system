@@ -15,6 +15,8 @@ nav.navbar.navbar-expand-lg.navbar-dark.sticky-top.header
           a.nav-link(href='/accounts') Accounts
         li.nav-item
           a.nav-link(href='/addNew') Add New
+        li.nav-item
+          a.nav-link(href='/addNew/all') Add New All
     form.form-inline.my-2.my-lg-0(action='/myaccount')
-      input.form-control.mr-sm-2(name='id' type='search', placeholder='Your ID or ACN' maxlength='6' minlength='5' aria-label='Search')
+      input.form-control.mr-sm-2(name='id' type='search', placeholder='Your ID or ACN' aria-label='Search'  pattern='[0-9]{3}|[0-9]{6}' title='Enter your 3 digit id number or 6 digit account number')
       button.btn.btn-outline-warning.my-2.my-sm-0(type='submit') Get Info

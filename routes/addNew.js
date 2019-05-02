@@ -10,6 +10,14 @@ router.use(express.json());
 router.get('/', async (req, res) => {
     res.render('admin/addNew');
 });
+// Add New Page
+router.get('/all', async (req, res) => {
+    const customers = await Customer.find();
+    const accounts = await Account.find();
+
+
+    res.render('admin/add', { customers, accounts });
+});
 // Customer
 router.get('/customer', async (req, res) => {
     res.render('admin/customer');
@@ -17,7 +25,7 @@ router.get('/customer', async (req, res) => {
 // Getting user
 router.get('/account', async (req, res) => {
     const customers = await Customer.find();
-    res.render('admin/account', { customers });
+    res.render('admin/addNew', { customers });
 });
 // Getting user
 router.get('/deposit', async (req, res) => {

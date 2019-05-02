@@ -11,30 +11,26 @@ router.use(express.json());
 router.post('/', upload.none(), async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(406).send(error.details[0].message);
-    let customerInfo = req.body
-    let customer = new Customer(customerInfo);
-    
-    function genId (min, max) {return Math.floor(Math.random() * (max - min + 1) ) + min;}
 
+    let customerInfo = req.body
+
+    function genId (min, max) {return Math.floor(Math.random() * (max - min + 1) ) + min;}
+    
+    async function checkInDb(id) {
+        const idFound = await Customer.findOne({id});
+        if (idFound) return true;
+        else return false;
+    }
+    
     async function checkUniqueId() {
         do {
-            customer.id = genId(10000,99999);
-            console.log(customer.id);
-        } while (await checkInDb(customer.id));
+            customerInfo.id = genId(100,999);
+        } while (await checkInDb(customerInfo.id));
     }
-
-
-    async function checkInDb(id) {
-            let idFound = await Customer.findOne({id});
-            console.log(idFound);
-            
-            if (idFound) return true;
-            else return false;
-    }
-
 
     await checkUniqueId()
     
+    const customer = new Customer(customerInfo);
     const result = await customer.save();
     res.json(result);
 });

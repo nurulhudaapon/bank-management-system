@@ -22,9 +22,9 @@ router.get('/accounts', async (req, res) => {
 // My account
 router.get('/myaccount', async (req, res) => {
     const query = req.query.id.toString();
-    let t = query.length == 5 || query.length == 6
+    let t = query.length == 3 || query.length == 6
     if (!t) return res.status(406).send('Invalid ID or ACN');
-    if (query.length == 5) {
+    if (query.length == 3) {
         const result = await Customer.findOne({id: query}).select('-__v -_id').populate({
             path: 'accounts',
             select: '-__v -_id -id',
