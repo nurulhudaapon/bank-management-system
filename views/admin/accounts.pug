@@ -8,6 +8,7 @@ block content
                 th ACN
                 th Current
                 th Total
+                th Updated
             if accounts.length != 0
                 each n in accounts
                     tr
@@ -16,6 +17,7 @@ block content
                         td
                             h5=n.current+' Taka'
                         td=n.total+' Taka'
+                        td=n.lastUpdated.toDateString()
             else
                 tr
                     td(colspan='4') No accounts yet

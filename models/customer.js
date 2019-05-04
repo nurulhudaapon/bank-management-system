@@ -21,7 +21,7 @@ const validateCustomer = (customerInfo) => {
     const schema = {
             name: Joi.string().min(2).max(255).required(),
             phone: Joi.string().length(11).required(),
-            email: Joi.string().allow(null, ''),
+            email: Joi.string(),
             address: Joi.string().min(2).max(255).required(),
             date: Joi.date(),
             accounts: Joi.array()

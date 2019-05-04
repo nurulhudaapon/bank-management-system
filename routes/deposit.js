@@ -19,6 +19,9 @@ router.post('/', upload.none(), async (req, res) => {
     const deposit = new Deposit(depositInfo);
     
     const account = await Account.findOneAndUpdate({ acn: deposit.acn }, {
+        $set: {
+            lastUpdated: Date.now()
+        },
         $push: {
             deposits: deposit._id
         },

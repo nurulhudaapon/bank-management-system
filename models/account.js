@@ -14,7 +14,9 @@ const Account = mongoose.model(config.get('database.account'), new mongoose.Sche
     deposits: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: config.get('database.deposit')
-    }]
+        }],
+    lastUpdated: {type: Date, default: Date.now},
+    isMatured: {type: Boolean, default: false}
     }));
 
 // Joi validation

@@ -14,8 +14,17 @@ form.cform#customer-form
                         input.form-control(name='address' type='text', placeholder='Address', value='' id='address')
                     .form-group
                         input.form-control(name='date' type='date', placeholder='Account Opening Date', value='' id='date')
-            .row  
-                .col
-                    .form-group
-                        input.form-control(name='email' type='email', placeholder='Email', value='' id='email')
+            .row
+                .col           
+                    .input-group
+                        input.form-control(name='email' type='email', placeholder='Email', id='email', disabled)
+                        span.input-group-append
+                            input(type='checkbox',  id='email-radio', onClick="toggle('email-radio', 'email')", value='1' style='width: 38px;height: 38px;')
+            br
             button.btnSubmit(type='submit') Submit
+script.
+    function toggle(checkboxID, toggleID) {
+        var checkbox = document.getElementById(checkboxID);
+        var toggle = document.getElementById(toggleID);
+        updateToggle = checkbox.checked ? toggle.disabled=false : toggle.disabled=true;
+        }
