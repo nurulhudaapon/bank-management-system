@@ -3,18 +3,20 @@ const router = express.Router();
 
 router.use(express.json());
 
+
+const { Account } = require('../models/account');
+const { Customer } = require('../models/customer');
+
 // Home
 router.get('/', async (req, res) => {
     res.render('user/home');
 });
 // Customers
-const { Customer } = require('../models/customer');
 router.get('/customers', async (req, res) => {
     let customers = await Customer.find();
     res.render('admin/customers', { customers });
 });
 // Accounts
-const { Account } = require('../models/account');
 router.get('/accounts', async (req, res) => {
     let accounts = await Account.find();
     res.render('admin/accounts', { accounts });
@@ -43,6 +45,21 @@ router.get('/myaccount', async (req, res) => {
         res.render('user/account', {result});
     }
 });
+
+
+
+
+router.get('/info', async(req, res) => {
+    // let accounts = await Account.find().select('current -_id');
+    let accounts = await Account.aggregate([
+        { $group: { _id: null, sumAccount: { $sum: "$current" } } }
+    ])
+    res.send(`<h1>${accounts[0].sumAccount}<h1>`)
+});
+
+
+
+
 
 module.exports = router;
 

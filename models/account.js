@@ -5,6 +5,10 @@ const Joi = require('joi');
 // Customer model
 const Account = mongoose.model(config.get('database.account'), new mongoose.Schema({
     name: {type: String, required: true},
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: config.get('database.customer')
+        },
     id: {type: String, required: true},
     acn: {type: String, required: true, unique: true},
     date: {type: Date, required: true},

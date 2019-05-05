@@ -5,15 +5,15 @@ block css
 
 block content
     .container
-        h3.header.rounded Welcome To Bank-PONSRIK Online Service
+        h3.header.rounded(style='background:#74B9FF') Welcome To Bank-PONSRIK Online Service
         
         br
-        h4.header.rounded Enter Your ID or ACN to Get Info
         form.form(action='/myaccount')
             .input-group
-                input.form-control(name='id' maxlength='6' type='search', placeholder='Your ID or ACN' aria-label='Search'  pattern='[0-9]{3}|[0-9]{6}' title='Enter your 3 digit id number or 6 digit account number', aria-describedby='basic-addon2', required)
+                input.form-control(style='height:80px;    height: 80px;font-size: xx-large;font-weight: 600;text-align: center;' name='id' maxlength='6' type='search', placeholder='Your ID or ACN' aria-label='Search'  pattern='[0-9]{3}|[0-9]{6}' title='Enter your 3 digit id number or 6 digit account number', aria-describedby='basic-addon2', required)
                 span.input-group-append
-                    button.btn.btn-warning(type='submit') Get
+                    button.btn.btn-warning(type='submit' style='width:80px') Get
+        h5.header.rounded-bottom Enter Your ID or ACN to Get Info
 
 
 

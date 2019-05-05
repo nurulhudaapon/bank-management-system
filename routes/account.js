@@ -24,6 +24,9 @@ router.post('/', upload.none(), async (req, res) => {
     }, { new: true });
     
     account.acn = `${customer.id}${customer.accounts.length.toString().padStart(3, 0)}`;
+    account.owner = customer._id;
+    console.log(account.owner);
+    
 
     const result = await account.save();
 
@@ -33,6 +36,10 @@ router.post('/', upload.none(), async (req, res) => {
 // Getting account
 router.get('/', async (req, res) => {
     const result = await Account.find().populate('deposits');
+    res.send(result);
+});
+router.get('/:acn', async (req, res) => {
+    const result = await Account.find({acn:req.params.acn}).populate('deposits');
     res.send(result);
 });
 
