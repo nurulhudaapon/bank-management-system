@@ -40,3 +40,15 @@ content-type: application/json
     "min": 20
 }
 ###
+###
+
+
+
+
+# Login test
+
+get http://localhost:3000/test
+###
+GET http://localhost:3000/logout
+###
+POST http://localhost:3000/login

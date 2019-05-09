@@ -4,9 +4,11 @@ const { Account, validate } = require('../models/account');
 const { Customer } = require('../models/customer');
 const multer  = require('multer')
 const upload = multer({ dest: 'public/uploads/' })
+const admin= require('../middleware/admin');
+
 
 // Creating account
-router.post('/', upload.none(), async (req, res) => {
+router.post('/', admin, upload.none(), async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(406).send(error.details[0].message);
     
@@ -34,23 +36,23 @@ router.post('/', upload.none(), async (req, res) => {
 });
 
 // Getting account
-router.get('/', async (req, res) => {
+router.get('/', admin, async (req, res) => {
     const result = await Account.find().populate('deposits');
     res.send(result);
 });
-router.get('/:acn', async (req, res) => {
+router.get('/:acn', admin, async (req, res) => {
     const result = await Account.find({acn:req.params.acn}).populate('deposits');
     res.send(result);
 });
 
 // Deleting account
-router.delete('/:acn', async (req, res) => {
+router.delete('/:acn', admin, async (req, res) => {
     const result = await Account.deleteOne({ acn: req.params.acn });
     res.send(result);
 });
 
 // Updating account
-router.put('/:acn', upload.none(), async (req, res) => {
+router.put('/:acn', admin, upload.none(), async (req, res) => {
     let newInfo = req.body;
     const result = await Account.updateOne({ acn: req.params.acn }, {
         $set: {

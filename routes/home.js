@@ -1,5 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const admin = require('../middleware/admin');
+
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
+
+router.use(cookieParser());
 
 router.use(express.json());
 
@@ -9,15 +15,15 @@ const { Customer } = require('../models/customer');
 
 // Home
 router.get('/', async (req, res) => {
-    res.render('user/home');
+    res.render('user/home', {req});
 });
 // Customers
-router.get('/customers', async (req, res) => {
+router.get('/customers', admin, async (req, res) => {
     let customers = await Customer.find();
     res.render('admin/customers', { customers });
 });
 // Accounts
-router.get('/accounts', async (req, res) => {
+router.get('/accounts', admin, async (req, res) => {
     let accounts = await Account.find();
     res.render('admin/accounts', { accounts });
 });
@@ -46,17 +52,50 @@ router.get('/myaccount', async (req, res) => {
     }
 });
 
+router.get('/info', admin, async(req, res) => {
 
+    const result = await Customer.find().select('-__v -_id').populate({
+        path: 'accounts',
+        select: '-__v -_id -id',
+        populate: {
+            path: 'deposits',
+            select: '-_id -__v -name'
+        }
+    });
 
-
-router.get('/info', async(req, res) => {
     // let accounts = await Account.find().select('current -_id');
-    let accounts = await Account.aggregate([
-        { $group: { _id: null, sumAccount: { $sum: "$current" } } }
-    ])
-    res.send(`<h1>${accounts[0].sumAccount}<h1>`)
+    let accounts = await Account.aggregate([{ $group: { _id: null, sumAccount: { $sum: "$current" } } }]);
+
+    res.json(result)
+    var accountCount= 0;
+    for (let i=0; i > result.length; i++){
+        accountCount+= result[i].accounts.length;
+        console.log(result.length, accountCount);
+    }
+    
+
+    
 });
 
+router.post('/login', express.urlencoded(), (req, res)=>{
+
+    console.log(req.body);
+
+    if (req.body.uname == 'bp' && req.body.psw == '338899') {
+        const token = jwt.sign({name: "Nurul Huda", role: "Super"}, 'pk');
+        res.cookie('token', token).send('Logged In');
+    } else {
+        res.send('Wrond usernamer or password');
+    }
+
+    
+});
+
+router.get('/logout', (req, res)=>{
+
+res.cookie('token', '').send('Logged out');
+
+});
 
 
 

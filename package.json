@@ -1,6 +1,6 @@
 {
   "name": "mbms",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "This is a complete webapp for managing a mini home bank.",
   "main": "index.js",
   "engines": {
@@ -22,9 +22,11 @@
   "homepage": "https://github.com/nurulhuda859/Mini-Bank-Managemant-System#readme",
   "dependencies": {
     "config": "^3.1.0",
+    "cookie-parser": "^1.4.4",
     "express": "^4.16.4",
     "express-async-errors": "^3.1.1",
     "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.4",
     "multer": "^1.4.1",
     "pug": "^2.0.3"
