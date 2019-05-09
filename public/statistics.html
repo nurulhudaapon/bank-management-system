@@ -31,7 +31,7 @@
     <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
         <div class="w3-container w3-row">
             <div class="w3-col s4">
-                <img src="http://nhas.me/res/nha.jpg" class="w3-circle w3-margin-right" style="width:46px">
+                <img src="https://portfolio.nhas.me/res/nha.jpg" class="w3-circle w3-margin-right" style="width:46px">
             </div>
             <div class="w3-col s8 w3-bar">
                 <span>Welcome, <strong>Nurul Huda</strong></span><br>
@@ -281,7 +281,7 @@
         var total = document.getElementById('total');
         var lastDeposit = document.getElementById('last-deposit-time');
         async function run2() {
-            let result = await fetch('http://localhost:3000/api/statistics');
+            let result = await fetch('/api/statistics');
             let info = await result.json();
             console.log(info);
 
