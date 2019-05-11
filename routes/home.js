@@ -83,7 +83,7 @@ router.post('/login', express.urlencoded(), (req, res)=>{
 
     if (req.body.uname == 'bp' && req.body.psw == '338899') {
         const token = jwt.sign({name: "Nurul Huda", role: "Super"}, 'pk');
-        res.cookie('token', token).send('Logged In');
+        res.cookie('token', token).redirect('/admin');
     } else {
         res.send('Wrond usernamer or password');
     }
@@ -93,10 +93,9 @@ router.post('/login', express.urlencoded(), (req, res)=>{
 
 router.get('/logout', (req, res)=>{
 
-res.cookie('token', '').send('Logged out');
+res.cookie('token', '').redirect('/admin-login.html');
 
 });
-
 
 
 

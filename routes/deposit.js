@@ -62,6 +62,14 @@ router.put('/:acn', upload.none(), async (req, res) => {
     });
     res.json(result);
 });
+// Updating user
+// router.use(express.urlencoded());
+router.get('/test', upload.none(), async (req, res) => {
+    let newInfo = req.query;
+    console.log(newInfo);
+    
+    res.json(newInfo);
+});
 
 module.exports = router;
 

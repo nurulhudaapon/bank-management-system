@@ -22,6 +22,15 @@
         
     }
 </style>
+    <style>
+        input {
+            border: solid 1px darkseagreen;
+            width: 90px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
 
 <body class="w3-light-grey">
 
@@ -40,9 +49,9 @@
             </div>
             <div class="w3-col s8 w3-bar">
                 <span>Welcome, <strong>Nurul Huda</strong></span><br>
-                <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
-                <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
-                <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+                <a href="/logout" class="w3-bar-item w3-button w3-center"><i class="fa fa-sign-out"></i></a>
+                <!-- <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a> -->
+                <!-- <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a> -->
             </div>
         </div>
         <hr>
@@ -55,7 +64,7 @@
             <a href="#" class="w3-bar-item w3-button w3-padding" onclick="changeToP()"><i class="fa fa-users fa-fw"></i>  Overview</a>
             <a href="#" class="w3-bar-item w3-button w3-padding" onclick="add()"><i class="fa fa-plus fa-fw"></i>  Add</a>
             <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-minus fa-fw"></i>  Delete</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-edit fa-fw"></i>  Edit</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding" onclick="changeToD()"><i class="fa fa-edit fa-fw"></i>  Edit</a>
             <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>  History</a>
             <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>  Settings</a><br><br>
         </div>
@@ -147,7 +156,7 @@
             </div>
         </div>
         <hr>
-
+<!-- 
 
 
         <div id="edit-deposit">
@@ -161,7 +170,7 @@
                         </tr>
     
                     </table>
-        </div>
+        </div> -->
         <!-- <div class="w3-container">
             <h5>General Stats</h5>
             <p>New Visitors</p>
@@ -264,11 +273,10 @@
 
         <!-- End page content -->
     </div>
-
-
-        <ol id="list">
-            
-        </ol>
+    <div id="tr" class="w3-center" hidden>
+        <br>
+        <h3 class="w3-center">List of Deposits</h3>
+    </div>
     <script>
         // Get the Sidebar
         var mySidebar = document.getElementById("mySidebar");
@@ -355,53 +363,11 @@
         function changeToP() {
             document.getElementById('content').innerHTML = contentp;
         }
-    </script>
-
-    <script>
-        let list = document.getElementById('list');
-        let tr = document.getElementById('tr');
-        async function editDeposit(params) {
-            let res = await fetch('/api/deposit');
-            let json = await res.json();
-            console.log(json);
-            // json.forEach((e, i) => {
-
-            //     // list.innerHTML += '<li>'+i+ e.name+'<li>'
-            //     tr.innerHTML += `
-            //                     <tr>
-            //                         <form>
-            //                             <input value=${e.acn}>
-            //                             <input value=${e.name}>
-            //                             <input value=${e.dBy}>
-            //                             <input value=${e.dTo}>
-            //                             <input value=${e.amount}>
-            //                         </form>
-            //                     </tr>
-            //     `
-
-                
-            // });
-
-            for (e in json)  {
-
-                // list.innerHTML += '<li>'+i+ e.name+'<li>'
-                tr.innerHTML += `
-                                <tr>
-                                    <form>
-                                        <input value=${e.acn}>
-                                        <input value=${e.name}>
-                                        <input value=${e.dBy}>
-                                        <input value=${e.dTo}>
-                                        <input value=${e.amount}>
-                                    </form>
-                                </tr>
-                `
-
-                
-            }
-            
+        function changeToD() {
+            document.getElementById('content').innerHTML = document.getElementById('tr').innerHTML;
         }
     </script>
+    <script src="/static/js/edit-deposit.js"></script>
 
 </body>
 

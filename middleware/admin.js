@@ -4,7 +4,7 @@ module.exports = function (req, res, next) {
 
     let token = req.cookies.token;
         
-    if (!token) return res.status(403).send('No token provided');
+    if (!token) return res.status(403).redirect('/admin-login.html');
 
     
     try {
