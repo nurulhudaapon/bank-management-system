@@ -25,7 +25,7 @@ const Account = mongoose.model(config.get('database.account'), new mongoose.Sche
         type: Boolean,
         default: null,
         get: function (v) { return this.current >= this.total },
-        set: function (v) {return this.current >= this.total }
+        set: function (v) { return this.current >= this.total }
     }
 }, { timestamps: { createdAt: 'date', updatedAt: 'lastUpdated' }, toObject : {getters: true}, toJSON : {getters: true}}
 ));

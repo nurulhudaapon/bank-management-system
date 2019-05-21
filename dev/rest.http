@@ -18,11 +18,10 @@ content-type: application/json
     "accounts": []
 }
 ###
-POST http://localhost:3000/api/withdraw/826004
+POST http://localhost:3000/api/withdraw/496002
 content-type: application/json
 
 {
-    "acn": "496002",
     "date": "5/6/2019",
     "balance": "500",
     "amount": "55",
