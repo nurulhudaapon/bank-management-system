@@ -77,7 +77,7 @@ router.get('/info', admin, async(req, res) => {
     
 });
 
-router.post('/login', express.urlencoded(), (req, res)=>{
+router.post('/login', express.urlencoded({extended:true}), (req, res)=>{
 
     console.log(req.body);
 

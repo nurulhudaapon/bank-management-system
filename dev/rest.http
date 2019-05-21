@@ -1,6 +1,10 @@
 GET http://localhost:3000/api/customer
 ###
+GET http://localhost:3000/api/withdraw
+###
 GET http://localhost:3000/api/deposit
+###
+GET http://localhost:3000/api/account
 ###
 
 POST http://localhost:3000/api/customer
@@ -12,6 +16,17 @@ content-type: application/json
     "address": "rayghjerbagasfasf",
     "date": "2018-04-26",
     "accounts": []
+}
+###
+POST http://localhost:3000/api/withdraw/826004
+content-type: application/json
+
+{
+    "acn": "496002",
+    "date": "5/6/2019",
+    "balance": "500",
+    "amount": "55",
+    "charge": "55"
 }
 ###
 

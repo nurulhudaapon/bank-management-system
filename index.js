@@ -15,4 +15,5 @@ app.use( "/admin", [ admin, express.static(path.join( __dirname, "admin" )) ] );
 app.use(express.static(path.join(__dirname, 'public')));
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log('Server started at: http://localhost/'));
+const host = process.env.HOST || 'http://localhost'
+app.listen(port, () => console.log('Server started at: ' + host+":"+port));
