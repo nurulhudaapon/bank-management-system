@@ -7,7 +7,7 @@ const upload = multer({ dest: 'public/uploads/' })
 
 router.use(express.json());
 
-// Creating user
+// Creating deposit
 router.post('/', upload.none(), async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(406).send(error.details[0].message);
@@ -17,10 +17,19 @@ router.post('/', upload.none(), async (req, res) => {
     depositInfo.acn = depositInfo.account.split(' - ')[1];
 
     const deposit = new Deposit(depositInfo);
+
+    let account = await Account.findOne({ acn: deposit.acn });
+
+    if (deposit.amount < account.min) return res.status(406).send(`Deposit amount (${deposit.amount}) is less then account minimum (${account.min})`);
+    function maturityTest(params) {
+        if ((account.current + deposit.amount) > account.total) return true;
+        return false;
+    }
     
-    const account = await Account.findOneAndUpdate({ acn: deposit.acn }, {
+    account = await Account.findOneAndUpdate({ acn: deposit.acn }, {
         $set: {
-            lastUpdated: Date.now()
+            lastUpdated: Date.now(),
+            matured: maturityTest()
         },
         $push: {
             deposits: deposit._id
@@ -30,6 +39,7 @@ router.post('/', upload.none(), async (req, res) => {
         }
         
     },{new: true});
+
 
     const result = await deposit.save();
     

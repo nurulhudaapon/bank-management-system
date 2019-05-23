@@ -37,9 +37,22 @@ router.post('/', admin, upload.none(), async (req, res) => {
 
 // Getting account
 router.get('/', admin, async (req, res) => {
-    const result = await Account.find().populate('deposits');
-    res.send(result);
+
+    if (req.query.type == 'long') {
+        const result = await Account.find().populate('deposits');
+        return res.json(result);
+    }
+    if (req.query.type == 'short') {
+        const result = await Account.find().select('name acn total min matured withdrawn -_id');
+        return res.json(result);
+    }
+    const result = await Account.find().select('-_id -__v');
+    res.json(result);
+    
 });
+
+
+
 router.get('/:acn', admin, async (req, res) => {
     const result = await Account.find({acn:req.params.acn}).populate('deposits');
     res.send(result);
