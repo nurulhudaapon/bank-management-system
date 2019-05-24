@@ -85,7 +85,8 @@ run2();
 
 
 function changeTo(c) {
-    document.getElementById('content').innerHTML = `<iframe width="100%" height="1200px" src=/${c}>`
+    w3_close();
+    document.getElementById('content').innerHTML = `<iframe width="100%" height="600px" frameborder='no' src=/${c}>`
 }
 
 function changeToP() {

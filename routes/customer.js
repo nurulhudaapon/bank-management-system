@@ -47,6 +47,11 @@ router.get('/', async (req, res) => {
      });
     res.json(result);
 });
+// Getting a user
+router.get('/:id', async (req, res) => {
+    const result = await Customer.findOne({id: req.params.id}).select('-__v -_id');
+    res.json(result);
+});
 
 // Deleting user
 router.delete('/:id', async (req, res) => {
@@ -56,17 +61,29 @@ router.delete('/:id', async (req, res) => {
 
 // Updating user
 router.put('/:id', upload.none(), async (req, res) => {
+    // console.log('req recived');
+    // console.log(req.body);
+
+    const { error } = validate(req.body);
+    if (error) return res.status(406).send(error.details[0].message);
+    
+    
     let newInfo = req.body;
+    if (!newInfo.email) newInfo.email = null;
     const result = await Customer.updateOne({ id: req.params.id }, {
         $set: {
             name: newInfo.name,
             phone: newInfo.phone,
             address: newInfo.address,
-            id: newInfo.id,
-            acc_date: newInfo.acc_date
+            // id: newInfo.id,
+            date: newInfo.date,
+            email: newInfo.email
         }
     });
-    res.json(result);
+    console.log(result.ok);
+    if (result.ok)return res.send('Customer updated');
+    res.send('Failed to update customer')
+    
 });
 
 module.exports = router;

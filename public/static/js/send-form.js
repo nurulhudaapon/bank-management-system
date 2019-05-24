@@ -29,3 +29,34 @@ function main(url, id) {
 main('/api/account', 'account-form')
 main('/api/customer', 'customer-form')
 main('/api/deposit', 'deposit-form')
+
+
+
+
+function sendEdit(url, id) {
+    async function editSubmitter(url, data) {
+        const bc = document.querySelector('#body-content');
+        $('#exampleModal').modal('show');
+        bc.innerHTML = "<div style='margin-left: 38%;' class='loader'></div>"
+
+        const option = { method: 'PUT', body: data }
+        try {
+        const customerId = document.querySelector('#customer-edit').value;
+        // console.log(url+'/'+customerId);
+        
+            const res = await fetch(url+'/'+customerId, option);
+            if (res.ok) {
+                bc.innerHTML = 'Customer info updated'
+            }
+        }
+        catch (err) { bc.innerHTML = "Error, can't load: " + err }
+    }
+    if (!document.getElementById(id)) return;
+    document.getElementById(id).addEventListener('submit', function sender(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        editSubmitter(url, formData)
+    });
+}
+
+sendEdit('/api/customer', 'customer-edit-form')
