@@ -8,11 +8,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/form.css">
-    <style>
-        .note {
-            background: -webkit-linear-gradient(left, #ff8787, #d3ff21);
-        }
-    </style>
     <title>Bank-PONSRIK</title>
 </head>
 
@@ -40,27 +35,29 @@
     <div class="container">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-                    aria-controls="nav-home" aria-selected="true">Deposit</a>
-                <a class="nav-item nav-link" id="account-edit-tab" data-toggle="tab" href="#nav-profile" role="tab"
-                    aria-controls="nav-profile" aria-selected="false" onclick="getAccounts2();">Account</a>
+                <a class="nav-item nav-link active" id="nav-home-tab"
+                    data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home"
+                    aria-selected="true">Withdraw</a>
+                <!-- <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                    aria-controls="nav-profile" aria-selected="false" onclick="getCustomers()">Account</a>
                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
-                    aria-controls="nav-contact" aria-selected="false" onclick="getCustomers2()">Customer</a></div>
+                    aria-controls="nav-contact" aria-selected="false">Customer</a> -->
+            </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="bo" style="border: 1px solid #dee2e6;border-top: none;"><br>
-                    <form class="cform" id="deposit-edit-form">
+                    <form class="cform" id="deposit-form">
                         <div class="container register-form">
                             <div class="note">
-                                <p>Edit Deposit (Not Implemented)</p>
+                                <p>Create New Withdraw</p>
                             </div>
                             <div class="form-content">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group"><select class="form-control" name="account" id="account"
-                                                onchange="myFunction(event)">
-                                                <option hidden selected disabled>Loading accounts...</option>
+                                        <div class="form-group"><select class="form-control" id="matured-account"
+                                                onchange="prefillWitdrawEdit()">
+                                                <option hidden selected disabled>Loading matured accounts...</option>
 
                                             </select></div>
                                     </div>
@@ -97,52 +94,31 @@
                         }</script>
                 </div>
             </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="account-edit-tab">
+            <!-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="bo" style="border: 1px solid #dee2e6;border-top: none;"><br>
-                    <form class="cform" id="account-edit-form">
+                    <form class="cform" id="account-form">
                         <div class="container register-form">
                             <div class="note">
-                                <p>Edit Account</p>
+                                <p>Create New Account</p>
                             </div>
                             <div class="form-content">
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <select class="form-control" id="account-edit"
-                                                onchange="prefillAccountEdit()">
-                                                <option hidden selected disabled>Loading accounts...</option>
+                                            <select class="form-control" name="customer" id="customer">
+                                                <option hidden selected disabled>Loading customers...</option>
                                             </select>
                                         </div>
+                                        <div class="form-group"><input class="form-control" name="date" type="date"
+                                                placeholder="Account Opening Date" value="" id="date"></div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input class="form-control" name="name" type="text"
-                                                placeholder="Account name" value="" id="acname">
-                                        </div>
+                                        <div class="form-group"><input class="form-control" name="min" type="number"
+                                                placeholder="Minimum Deposit" value="" id="min"></div>
+                                        <div class="form-group"><input class="form-control" name="total" type="number"
+                                                placeholder="Total Deposit" value="" id="total"></div>
                                     </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input class="form-control" name="date" type="date"
-                                                placeholder="Account Opening Date" value="" id="acdate">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input class="form-control" name="min" type="number"
-                                                placeholder="Minimum Deposit" value="" id="min">
-                                        </div>                                    <div class="form-group">
-                                         <input class="form-control" name="total" type="number" placeholder="Total Deposit"
-                                            value="" id="total">
-                                </div>
-                                    </div>
-                                </div class="col-md-6">
-
-
-                                <button class="btnSubmit" type="submit">Submit</button>
+                                </div><button class="btnSubmit" type="submit">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -150,22 +126,12 @@
             </div>
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 <div class="bo" style="border: 1px solid #dee2e6;border-top: none;"><br>
-                    <form class="cform" id="customer-edit-form">
+                    <form class="cform" id="customer-form">
                         <div class="container register-form">
                             <div class="note">
-                                <p>Edit Customer</p>
+                                <p>Create New Customer</p>
                             </div>
                             <div class="form-content">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <select class="form-control" id="customer-edit"
-                                                onchange="prefillCustomerEdit()">
-                                                <option hidden selected disabled>Loading customers...</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group"><input class="form-control" name="name" type="text"
@@ -178,7 +144,7 @@
                                         <div class="form-group"><input class="form-control" name="address" type="text"
                                                 placeholder="Address" value="" id="address"></div>
                                         <div class="form-group"><input class="form-control" name="date" type="date"
-                                                placeholder="Account Opening Date" value="" id="ccdate"></div>
+                                                placeholder="Account Opening Date" value="" id="date"></div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -193,13 +159,22 @@
                             </div>
                         </div>
                     </form>
+                    <script>
+                        function toggle(checkboxID, toggleID) {
+                            var checkbox = document.getElementById(checkboxID);
+                            var toggle = document.getElementById(toggleID);
+                            updateToggle = checkbox.checked ? toggle.disabled = false : toggle.disabled = true;
+                        }
+                    </script>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <script src="/static/js/send-form.js"></script>
     <script src="/static/js/form.js"></script>
-
+    <script>
+        getAccounts3();
+    </script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -35,6 +35,16 @@ async function getAccounts2() {
         accountEditListContainer.innerHTML += `<option value=${element.acn}>${element.name} - ${element.acn}</option>`
     });
 }
+async function getAccounts3() {
+    const withdrawAccountListContainer = document.querySelector('#matured-account');
+
+    const accounts = await fetch('/api/account?type=matured');
+    const accountList = await accounts.json();
+    withdrawAccountListContainer.innerHTML = '<option hidden selected disabled>Choose matured account</option>'
+    accountList.forEach(element => {
+        withdrawAccountListContainer.innerHTML += `<option value=${element.acn}>${element.name} - ${element.acn}</option>`
+    });
+}
 
 async function getCustomers() {
     const customerListContainer = document.querySelector('#customer');
@@ -83,7 +93,7 @@ async function prefillAccountEdit() {
     // console.log(accountInfo);
 
     document.getElementById('name').value = accountInfo.name;
-    // document.getElementById('id').value = accountInfo.id;
+    document.getElementById('acname').value = accountInfo.name;
     document.getElementById('min').value = accountInfo.min;
     document.getElementById('total').value = accountInfo.total;
     document.getElementById('acdate').value = accountInfo.date.split('T')[0];

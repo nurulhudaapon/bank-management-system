@@ -46,6 +46,11 @@ router.get('/', admin, async (req, res) => {
         const result = await Account.find().select('name acn total min matured withdrawn -_id');
         return res.json(result);
     }
+    if (req.query.type == 'matured') {
+        const result = await Account.find({matured: true}).select('name acn total min matured withdrawn -_id');
+        return res.json(result);
+    }
+    console.log('get all');
     const result = await Account.find().select('-_id -__v');
     res.json(result);
     
@@ -59,6 +64,8 @@ router.get('/:acn', admin, async (req, res) => {
         const result = await Account.findOne({acn:req.params.acn}).select('name id total min date -_id');
         return res.json(result);
     }
+
+    
     const result = await Account.findOne({acn:req.params.acn});
     res.json(result);
 });
@@ -76,6 +83,7 @@ router.put('/:acn', admin, upload.none(), async (req, res) => {
     
     const result = await Account.updateOne({ acn: req.params.acn }, {
         $set: {
+            name: newInfo.name,
             date: newInfo.date,
             min: newInfo.min,
             total: newInfo.total
