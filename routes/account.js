@@ -54,8 +54,13 @@ router.get('/', admin, async (req, res) => {
 
 
 router.get('/:acn', admin, async (req, res) => {
-    const result = await Account.find({acn:req.params.acn}).populate('deposits');
-    res.send(result);
+    // const result = await Account.find({acn:req.params.acn}).populate('deposits');
+    if (req.query.type == 'short') {
+        const result = await Account.findOne({acn:req.params.acn}).select('name id total min date -_id');
+        return res.json(result);
+    }
+    const result = await Account.findOne({acn:req.params.acn});
+    res.json(result);
 });
 
 // Deleting account
@@ -67,13 +72,13 @@ router.delete('/:acn', admin, async (req, res) => {
 // Updating account
 router.put('/:acn', admin, upload.none(), async (req, res) => {
     let newInfo = req.body;
+    console.log(newInfo);
+    
     const result = await Account.updateOne({ acn: req.params.acn }, {
         $set: {
-            name: newInfo.name,
-            phone: newInfo.phone,
-            address: newInfo.address,
-            acn: newInfo.acn,
-            acc_date: newInfo.acc_date
+            date: newInfo.date,
+            min: newInfo.min,
+            total: newInfo.total
         }
     });
     res.json(result);

@@ -42,8 +42,8 @@
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
                     aria-controls="nav-home" aria-selected="true">Deposit</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-                    aria-controls="nav-profile" aria-selected="false">Account</a>
+                <a class="nav-item nav-link" id="account-edit-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                    aria-controls="nav-profile" aria-selected="false" onclick="getAccounts2();">Account</a>
                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
                     aria-controls="nav-contact" aria-selected="false"  onclick="getCustomers2()">Customer</a></div>
         </nav>
@@ -97,23 +97,32 @@
                         }</script>
                 </div>
             </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="account-edit-tab">
                 <div class="bo" style="border: 1px solid #dee2e6;border-top: none;"><br>
-                    <form class="cform" id="account-form">
+                    <form class="cform" id="account-edit-form">
                         <div class="container register-form">
                             <div class="note">
                                 <p>Edit Account</p>
                             </div>
                             <div class="form-content">
+                                    <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <select class="form-control" id="account-edit" onchange="prefillAccountEdit()">
+                                                        <option hidden selected disabled>Loading accounts...</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <select class="form-control" name="customer" id="customer">
-                                                <option hidden selected disabled>Loading customers...</option>
+                                                <option hidden selected disabled>Choose owner</option>
                                             </select>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group"><input class="form-control" name="date" type="date"
-                                                placeholder="Account Opening Date" value="" id="date"></div>
+                                                placeholder="Account Opening Date" value="" id="acdate"></div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group"><input class="form-control" name="min" type="number"

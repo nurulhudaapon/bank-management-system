@@ -13,7 +13,7 @@ function main(url, id) {
                 if (json.amount) return bc.innerHTML = 'SUCCESS! Amount Added: ' + json.amount + ' Taka';
                 if (json.acn) return bc.innerHTML = 'SUCCESS! Your ACN: ' + json.acn;
                 if (json.id) return bc.innerHTML = 'SUCCESS! Your ID: ' + json.id;
-            }
+            }c
             bc.innerHTML = await res.text();
         }
         catch (err) { bc.innerHTML = "Error, can't load: " + err }
@@ -41,22 +41,24 @@ function sendEdit(url, id) {
 
         const option = { method: 'PUT', body: data }
         try {
-        const customerId = document.querySelector('#customer-edit').value;
+        // const customerId = document.querySelector('#customer-edit').value;
         // console.log(url+'/'+customerId);
+        // console.log(url);
         
-            const res = await fetch(url+'/'+customerId, option);
+            const res = await fetch(url, option);
             if (res.ok) {
-                bc.innerHTML = 'Customer info updated'
+                bc.innerHTML = 'SUCCES! Information Updated'
             }
         }
-        catch (err) { bc.innerHTML = "Error, can't load: " + err }
+        catch (err) { bc.innerHTML = "Error: " + err }
     }
     if (!document.getElementById(id)) return;
     document.getElementById(id).addEventListener('submit', function sender(e) {
         e.preventDefault();
         const formData = new FormData(this);
         editSubmitter(url, formData)
+
+        // console.log(formData);
+        
     });
 }
-
-sendEdit('/api/customer', 'customer-edit-form')

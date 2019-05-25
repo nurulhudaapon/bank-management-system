@@ -12,7 +12,6 @@ const Account = mongoose.model(config.get('database.account'), new mongoose.Sche
     id: { type: String, required: true },
     acn: { type: String, required: true, unique: true },
     withdrawn: { type: Boolean, default: false },
-    // date: { type: Date, required: true },
     min: { type: Number, required: true },
     total: { type: Number, required: true },
     current: { type: Number, default: 0 },
@@ -20,12 +19,9 @@ const Account = mongoose.model(config.get('database.account'), new mongoose.Sche
         type: mongoose.Schema.Types.ObjectId,
         ref: config.get('database.deposit')
     }],
-    // lastUpdated: { type: Date, default: Date.now },
     matured: {
         type: Boolean,
         default: false,
-        // get: function (v) { return this.current >= this.total },
-        // set: function (v) { return this.current >= this.total }
     }
 }, { timestamps: { createdAt: 'date', updatedAt: 'lastUpdated' }, toObject : {getters: true}, toJSON : {getters: true}}
 ));

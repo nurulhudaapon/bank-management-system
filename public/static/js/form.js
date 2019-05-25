@@ -15,7 +15,7 @@ function toggle(checkboxID, toggleID) {
 
 const accountListContainer = document.querySelector('#account');
 document.querySelector('#nav-home-tab').addEventListener('click', getAccounts);
-document.querySelector('#nav-profile-tab').addEventListener('click', getCustomers);
+// document.querySelector('#nav-profile-tab').addEventListener('click', getCustomers);
 
 async function getAccounts() {
     const accounts = await fetch('/api/account?type=short');
@@ -25,12 +25,22 @@ async function getAccounts() {
         accountListContainer.innerHTML += `<option>${element.name} - ${element.acn}</option>`
     });
 }
+async function getAccounts2() {
+    const accountEditListContainer = document.querySelector('#account-edit');
+
+    const accounts = await fetch('/api/account?type=short');
+    const accountList = await accounts.json();
+    accountEditListContainer.innerHTML = '<option hidden selected disabled>Choose account</option>'
+    accountList.forEach(element => {
+        accountEditListContainer.innerHTML += `<option value=${element.acn}>${element.name} - ${element.acn}</option>`
+    });
+}
 
 async function getCustomers() {
     const customerListContainer = document.querySelector('#customer');
     const customers = await fetch('/api/customer');
     const customerList = await customers.json();
-    customerListContainer.innerHTML = '<option hidden selected disabled>Choose account</option>'
+    customerListContainer.innerHTML = '<option hidden selected disabled>Choose customer</option>'
     customerList.forEach(element => {
         customerListContainer.innerHTML += `<option>${element.name} - ${element.id}</option>`
     });
@@ -39,7 +49,7 @@ async function getCustomers2() {
     const customerListContainer = document.querySelector('#customer-edit');
     const customers = await fetch('/api/customer');
     const customerList = await customers.json();
-    customerListContainer.innerHTML = '<option hidden selected disabled>Choose account</option>'
+    customerListContainer.innerHTML = '<option hidden selected disabled>Choose customer</option>'
     customerList.forEach(element => {
         customerListContainer.innerHTML += `<option value='${element.id}'>${element.name} - ${element.id}</option>`
     });
@@ -50,20 +60,35 @@ getAccounts();
 
 async function prefillCustomerEdit() {
     const customerId = document.querySelector('#customer-edit').value;
-    console.log(customerId);
-    const req = await fetch('/api/customer/'+customerId);
+    // console.log(customerId);
+    const req = await fetch('/api/customer/' + customerId);
     const customerInfo = await req.json();
-    console.log(customerInfo);
+    // console.log(customerInfo);
 
     document.getElementById('name').value = customerInfo.name;
     document.getElementById('address').value = customerInfo.address;
     document.getElementById('phone').value = customerInfo.phone;
     document.getElementById('email').value = customerInfo.email;
     document.getElementById('ccdate').value = customerInfo.date.split('T')[0];
-    console.log(customerInfo.date.split('T')[0]);
-    
-    
-    
+    // console.log(customerInfo.date.split('T')[0]);
+    sendEdit('/api/customer/'+document.querySelector('#customer-edit').value, 'customer-edit-form');
 
-    
+}
+
+async function prefillAccountEdit() {
+    const acn = document.querySelector('#account-edit').value;
+    // console.log(acn);
+    const req = await fetch('/api/account/' + acn+'?type=short');
+    const accountInfo = await req.json();
+    // console.log(accountInfo);
+
+    document.getElementById('name').value = accountInfo.name;
+    // document.getElementById('id').value = accountInfo.id;
+    document.getElementById('min').value = accountInfo.min;
+    document.getElementById('total').value = accountInfo.total;
+    document.getElementById('acdate').value = accountInfo.date.split('T')[0];
+    // console.log(accountInfo.date.split('T')[0]);
+    sendEdit('/api/account/'+document.querySelector('#account-edit').value, 'account-edit-form');
+
+
 }
