@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { Deposit, validate } = require('../models/deposit');
 const { Account } = require('../models/account');
-const multer  = require('multer')
+const { Customer } = require('../models/customer');
+const multer = require('multer')
 const upload = multer({ dest: 'public/uploads/' })
+const { sendMail } = require('../utils/mailer');
 
 router.use(express.json());
 
@@ -25,7 +27,7 @@ router.post('/', upload.none(), async (req, res) => {
         if ((account.current + deposit.amount) > account.total) return true;
         return false;
     }
-    
+
     account = await Account.findOneAndUpdate({ acn: deposit.acn }, {
         $set: {
             lastUpdated: Date.now(),
@@ -37,13 +39,23 @@ router.post('/', upload.none(), async (req, res) => {
         $inc: {
             current: deposit.amount
         }
-        
-    },{new: true});
+
+    }, { new: true });
 
 
     const result = await deposit.save();
-    
+
     res.json(result);
+
+    let { email } = await Customer.findOne({ id: account.id }).select('email');
+    if (email) {
+        let html = `Hi ${deposit.name}, <strong color="red">${deposit.amount} Taka</strong>  has been deposited to your account <strong>(ACN: ${deposit.acn})</strong> by <strong>${deposit.dBy}</strong> to <strong>${deposit.dTo}</strong> on <strong>${deposit.date.toDateString()}</strong>. `
+        let sub = 'New Deposit!'
+
+        let info = await sendMail(email, sub, html).catch(Error => console.log(Error));
+        // console.log("Message sent: %s", info.messageId);
+    }
+    
 });
 
 // Getting user
@@ -77,7 +89,7 @@ router.put('/:acn', upload.none(), async (req, res) => {
 router.get('/test', upload.none(), async (req, res) => {
     let newInfo = req.query;
     console.log(newInfo);
-    
+
     res.json(newInfo);
 });
 

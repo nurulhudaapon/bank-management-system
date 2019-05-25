@@ -1,5 +1,10 @@
 {
     "database": {
         "uri": "bp_db_uri"
+    },
+    "email": {
+        "auth": {
+            "pass": "bp_email_pass"
+        }
     }
 }

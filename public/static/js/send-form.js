@@ -13,7 +13,7 @@ function main(url, id) {
                 if (json.amount) return bc.innerHTML = 'SUCCESS! Amount Added: ' + json.amount + ' Taka';
                 if (json.acn) return bc.innerHTML = 'SUCCESS! Your ACN: ' + json.acn;
                 if (json.id) return bc.innerHTML = 'SUCCESS! Your ID: ' + json.id;
-            }c
+            }
             bc.innerHTML = await res.text();
         }
         catch (err) { bc.innerHTML = "Error, can't load: " + err }
