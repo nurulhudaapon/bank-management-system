@@ -45,10 +45,10 @@ async function run2() {
     let result = await fetch('/api/statistics');
     let info = await result.json();
 
-    console.log(info);
+    // console.log(info);
 
-    let cdate = Date.now()
-    let ldate = new Date(info.deposits[info.deposits.length - 1].date).getTime();
+    // let cdate = Date.now()
+    // let ldate = new Date(info.deposits[info.deposits.length - 1].date).getTime();
 
     function dhm(t) {
         var cd = 24 * 60 * 60 * 1000,
@@ -68,7 +68,7 @@ async function run2() {
         return [d+' Days '+ pad(h)+' Hours '+ pad(m)+' Minutes'];
     }
 
-    console.log(dhm(3 * 24 * 60 * 60 * 1000));
+    // console.log(dhm(3 * 24 * 60 * 60 * 1000));
 
     total.innerText = info.total;
     customer.innerText = info.customer;
@@ -76,7 +76,7 @@ async function run2() {
     deposit.innerText = info.depositCount;
     // lastDeposit.innerText = dhm(cdate - ldate);
     // - info.deposits[info.deposits.length - 1].date
-    console.log(info.deposits[info.deposits.length - 1]);
+    // console.log(info.deposits[info.deposits.length - 1]);
 
     contentp =document.getElementById('content').innerHTML
 
