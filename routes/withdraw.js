@@ -8,10 +8,10 @@ const { Withdraw , validate } = require('../models/withdraw');
 const { Account } = require('../models/account');
 
 // Creating withdraw
-router.post('/:acn',express.json(), upload.none(), async (req, res) => {
+router.post('/', upload.none(), async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(406).send(error.details[0].message);
-    const account = await Account.findOneAndUpdate({acn: req.params.acn, matured: true}, {
+    const account = await Account.findOneAndUpdate({acn: req.body.acn, matured: true}, {
         $set: {
             withdrawn: true
         }
@@ -23,7 +23,8 @@ router.post('/:acn',express.json(), upload.none(), async (req, res) => {
 
     let withdrawInfo = req.body
     withdrawInfo.account = account._id
-    withdrawInfo.acn = req.params.acn
+    withdrawInfo.acn = account.acn
+    withdrawInfo.amount = account.current
     
     const withdraw = new Withdraw(withdrawInfo);
     const result = await withdraw.save();

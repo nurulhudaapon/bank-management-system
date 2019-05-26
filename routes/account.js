@@ -39,15 +39,15 @@ router.post('/', admin, upload.none(), async (req, res) => {
 router.get('/', admin, async (req, res) => {
 
     if (req.query.type == 'long') {
-        const result = await Account.find().populate('deposits');
+        const result = await Account.find({withdrawn: false}).populate('deposits');
         return res.json(result);
     }
     if (req.query.type == 'short') {
-        const result = await Account.find().select('name acn total min matured withdrawn -_id');
+        const result = await Account.find({withdrawn: false}).select('name acn total min matured withdrawn -_id');
         return res.json(result);
     }
     if (req.query.type == 'matured') {
-        const result = await Account.find({matured: true}).select('name acn total min matured withdrawn -_id');
+        const result = await Account.find({matured: true, withdrawn: false}).select('name acn total min matured withdrawn -_id');
         return res.json(result);
     }
     console.log('get all');

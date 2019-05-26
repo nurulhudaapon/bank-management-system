@@ -29,6 +29,7 @@ function main(url, id) {
 main('/api/account', 'account-form')
 main('/api/customer', 'customer-form')
 main('/api/deposit', 'deposit-form')
+main('/api/withdraw', 'withdraw-form')
 
 
 

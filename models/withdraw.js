@@ -9,8 +9,10 @@ const Withdraw = mongoose.model(config.get('database.withdraw'), new mongoose.Sc
         required: true
     },
     acn: {type: String, required: true},
+    wFrom: {type: String, required: true},
+    wBy: {type: String, required: true},
     date: {type: Date, required: true},
-    balance: {type: Number, required: true},
+    // balance: {type: Number, required: true},
     amount: {type: Number, required: true},
     charge: {type: Number, required: true}
 }));
@@ -19,9 +21,12 @@ const Withdraw = mongoose.model(config.get('database.withdraw'), new mongoose.Sc
 const validateWithdraw = (witdrawInfo) => {
     const schema = {
             date: Joi.date().required(),
-            balance: Joi.number().required(),
-            amount: Joi.number().required(),
-            charge: Joi.number().required()
+            // balance: Joi.number().required(),
+            // amount: Joi.number().required(),
+            charge: Joi.number().required(),
+            wFrom: Joi.string().required(),
+            acn: Joi.string().required(),
+            wBy: Joi.string().required(),
         }
     return Joi.validate(witdrawInfo, schema);
 }

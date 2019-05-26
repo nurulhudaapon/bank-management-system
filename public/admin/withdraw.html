@@ -47,7 +47,7 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="bo" style="border: 1px solid #dee2e6;border-top: none;"><br>
-                    <form class="cform" id="deposit-form">
+                    <form class="cform" id="withdraw-form">
                         <div class="container register-form">
                             <div class="note">
                                 <p>Create New Withdraw</p>
@@ -55,32 +55,32 @@
                             <div class="form-content">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group"><select class="form-control" id="matured-account"
-                                                onchange="prefillWitdrawEdit()">
+                                        <div class="form-group"><select name="acn" class="form-control" id="matured-account"
+                                                onchange="myFunction(event)">
                                                 <option hidden selected disabled>Loading matured accounts...</option>
 
                                             </select></div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group"><input class="form-control" name="date" type="date"
-                                                placeholder="Deposited Date" value="" id="date"></div>
+                                                placeholder="Withdrawn Date" value="" id="date"></div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <div class="form-group"><input class="form-control" name="amount" type="number"
-                                                placeholder="Deposit Amount" value="" id="amount"></div>
+                                        <div class="form-group"><input class="form-control" name="charge" type="number"
+                                                placeholder="Charge Amount" value="" id="charge"></div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group"><input class="form-control" name="dBy" type="text"
-                                                placeholder="Deposited By" value="" id="d-by"></div>
+                                        <div class="form-group"><input class="form-control" name="wBy" type="text"
+                                                placeholder="Withdrawn By" value="" id="w-by"></div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <select class="form-control" name="dTo" type="text"
-                                                placeholder="Deposited To" value="" id="d-to">
+                                            <select class="form-control" name="wFrom" type="text"
+                                                placeholder="Withdrawn From" value="" id="w-from">
                                                 <option>Nurul Huda</option>
                                                 <option>Asik Ahmed</option>
                                             </select></div>
@@ -90,7 +90,7 @@
                         </div>
                     </form>
                     <script>function myFunction(e) {
-                            document.getElementById("d-by").value = e.target.value.split(' - ')[0]
+                            document.getElementById("w-by").value = e.target.innerText.split('account')[1].split(' - ')[0]
                         }</script>
                 </div>
             </div>

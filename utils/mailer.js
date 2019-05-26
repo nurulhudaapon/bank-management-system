@@ -3,16 +3,17 @@ const nodemailer = require("nodemailer");
 
 let transporter = nodemailer.createTransport(config.get('email'));
 
-module.exports.sendMail = async function (to, sub, html) {
+module.exports.sendMail = async function (to, subject, html) {
+  try {
+    let info = await transporter.sendMail({ from: `"Bank-PONSRIK" <${config.get('email.auth.user')}>`, to, subject, html });
+    console.log('Email sent, Time:' +info.messageTime+', Size: '+info.messageSize+', ID: ' + info.messageId);
+  }
+  catch (e) {
+    console.log('Errol Mailing: ' + e.response);
+  }
 
-  let info = await transporter.sendMail({
-    from: `"Bank-PONSRIK" <${config.get('email.auth.user')}>`,
-    // from: `"Bank-PONSRIK" <bank@ponsrik.cf>`,
-    to: to,
-    subject: sub,
-    html: html
-    
-  });
 }
-// module.exports.sendMail('nurulhuda859g@gmail.com', 'Testfrom nodefdgdfgmailer module', 'htmlgfg');
+// module.exports.sendMail('apon@ponsrik.cf', 'Mail Testing', '<h1>How are you?</h1>');
+// console.log(config.get('email'));
+
 

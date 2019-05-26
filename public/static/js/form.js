@@ -66,7 +66,6 @@ async function getCustomers2() {
 }
 
 
-getAccounts();
 
 async function prefillCustomerEdit() {
     const customerId = document.querySelector('#customer-edit').value;

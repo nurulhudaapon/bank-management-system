@@ -13,6 +13,6 @@ module.exports = function (req, res, next) {
         next();
     }
     catch(ex) {
-        res.status(400).send('Invalid Token');
+        res.status(400).redirect('/admin-login.html');
     }
 }

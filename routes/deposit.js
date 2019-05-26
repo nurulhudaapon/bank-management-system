@@ -24,7 +24,7 @@ router.post('/', upload.none(), async (req, res) => {
 
     if (deposit.amount < account.min) return res.status(406).send(`Deposit amount (${deposit.amount}) is less then account minimum (${account.min})`);
     function maturityTest(params) {
-        if ((account.current + deposit.amount) > account.total) return true;
+        if ((account.current + deposit.amount) >= account.total) return true;
         return false;
     }
 
@@ -49,11 +49,10 @@ router.post('/', upload.none(), async (req, res) => {
 
     let { email } = await Customer.findOne({ id: account.id }).select('email');
     if (email) {
-        let html = `Hi ${deposit.name}, <strong color="red">${deposit.amount} Taka</strong>  has been deposited to your account <strong>(ACN: ${deposit.acn})</strong> by <strong>${deposit.dBy}</strong> to <strong>${deposit.dTo}</strong> on <strong>${deposit.date.toDateString()}</strong>. `
+        let html = `Hi ${deposit.name}, <strong>${deposit.amount} Taka</strong>  has been deposited to your account <strong>(ACN: ${deposit.acn})</strong> by <strong>${deposit.dBy}</strong> to <strong>${deposit.dTo}</strong> on <strong>${deposit.date.toDateString()}</strong>. `
         let sub = 'New Deposit!'
 
-        let info = await sendMail(email, sub, html).catch(Error => console.log(Error));
-        // console.log("Message sent: %s", info.messageId);
+        let info = await sendMail(email, sub, html);
     }
     
 });

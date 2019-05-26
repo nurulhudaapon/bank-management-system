@@ -83,7 +83,12 @@ router.post('/login', express.urlencoded({extended:true}), (req, res)=>{
 
     if (req.body.uname == 'bp' && req.body.psw == '338899') {
         const token = jwt.sign({name: "Nurul Huda", role: "Super"}, 'pk');
-        res.cookie('token', token).redirect('/admin');
+        if (req.body.remember == 'on'){
+
+            res.cookie('token', token).redirect('/admin');
+            return;
+        }
+        res.cookie('token', token, { maxAge: 600000}).redirect('/admin');
     } else {
         res.send('Wrond usernamer or password');
     }
