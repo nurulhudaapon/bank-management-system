@@ -49,7 +49,8 @@ router.post('/', upload.none(), async (req, res) => {
 
     let { email } = await Customer.findOne({ id: account.id }).select('email');
     if (email) {
-        let html = `Hi ${deposit.name}, <strong>${deposit.amount} Taka</strong>  has been deposited to your account <strong>(ACN: ${deposit.acn})</strong> by <strong>${deposit.dBy}</strong> to <strong>${deposit.dTo}</strong> on <strong>${deposit.date.toDateString()}</strong>. `
+        let html = `Hi ${deposit.name}, <strong>${deposit.amount} Taka</strong>  has been deposited to your account <strong>(ACN: ${deposit.acn})</strong> by <strong>${deposit.dBy}</strong> to <strong>${deposit.dTo}</strong> on <strong>${deposit.date.toDateString()}</strong>.
+        Your current account balance is ${account.current} Taka.`
         let sub = 'New Deposit!'
 
         let info = await sendMail(email, sub, html);
