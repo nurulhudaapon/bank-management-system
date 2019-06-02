@@ -10,16 +10,11 @@
     "email": {
         "port": "465",
         "secure": "true",
-        "service": "Yandex",
-        "host": "smtp.yandex.com",
+        "service": "",
+        "host": "",
         "auth": {
-            "user": "bank-deposit@ponsrik.cf",
+            "user": "",
             "pass": ""
-        },
-        "dkim": {
-            "domainName": "ponsrik.cf",
-            "keySelector": "mail",
-            "privateKey": "-----BEGIN PRIVATE KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDwbyY2mB6pF010XONCl0VYZMHlJk3SmAjbHVMBeHVMYLYAKI6r0dKgv1G7DLoZ/PILAkFsYzJAfnUu3WaFPnNTPasIP8kxy0f3gL1cBvrKOMTg8ZxsQ5LmX00c4pMNTTbbq7dw4iF9uOiw2w8lo8DCPRbwpxJo+T3RN2YgPWpI8QIDAQAB"
         }
     }
 }

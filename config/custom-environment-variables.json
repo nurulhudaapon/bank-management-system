@@ -3,7 +3,9 @@
         "uri": "bp_db_uri"
     },
     "email": {
+        "service": "bp_email_service",
         "auth": {
+            "user": "bp_email_user",
             "pass": "bp_email_pass"
         }
     }
