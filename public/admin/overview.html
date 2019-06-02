@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <title>Statistics</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Raleway"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <link rel="stylesheet" href="/static/css/main.css" />
+  <body class="w3-light-grey">
+    <!-- !PAGE CONTENT! -->
+
+    <!-- Header -->
+    <header class="w3-container" style="padding-top:22px">
+      <h5>
+        <b><i class="fa fa-dashboard"></i> Dashboard</b>
+      </h5>
+    </header>
+
+    <div class="w3-row-padding w3-margin-bottom">
+      <div class="w3-quarter">
+        <div class="w3-container w3-red w3-padding-16">
+          <div class="w3-left"><i class="fa fa-money w3-xxxlarge"></i></div>
+          <div class="w3-right">
+            <h3 id="total">...</h3>
+          </div>
+          <div class="w3-clear"></div>
+          <h4>Total</h4>
+        </div>
+      </div>
+      <div class="w3-quarter" onclick="changeTo('customers')">
+        <div class="w3-container w3-blue w3-padding-16">
+          <div class="w3-left"><i class="fa fa-user w3-xxxlarge"></i></div>
+          <div class="w3-right">
+            <h3 id="customer">...</h3>
+          </div>
+          <div class="w3-clear"></div>
+          <h4>Customers</h4>
+        </div>
+      </div>
+      <div class="w3-quarter" onclick="changeTo('accounts')">
+        <div class="w3-container w3-teal w3-padding-16">
+          <div class="w3-left">
+            <i class="fa fa-address-book w3-xxxlarge"></i>
+          </div>
+          <div class="w3-right">
+            <h3 id="account">...</h3>
+          </div>
+          <div class="w3-clear"></div>
+          <h4>Accounts</h4>
+        </div>
+      </div>
+      <div class="w3-quarter" onclick="changeTo('deposits')">
+        <div class="w3-container w3-orange w3-text-white w3-padding-16">
+          <div class="w3-left"><i class="fa fa-download w3-xxxlarge"></i></div>
+          <div class="w3-right">
+            <h3 id="deposit">...</h3>
+          </div>
+          <div class="w3-clear"></div>
+          <h4>Deposits</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-panel">
+      <div class="w3-row-padding" style="margin:0 -16px">
+        <div class="w3-twothird">
+          <h5>Feeds</h5>
+          <table class="w3-table w3-striped w3-white">
+            <tr>
+              <td><i class="fa fa-download w3-text-blue w3-large"></i></td>
+              <td>Deposit added.</td>
+              <td><i id="last-deposit-time"> ... </i></td>
+            </tr>
+            <tr>
+              <td><i class="fa fa-address-book w3-text-red w3-large"></i></td>
+              <td>Account added.</td>
+              <td><i id="last-account-time">...</i></td>
+            </tr>
+            <tr>
+              <td><i class="fa fa-user w3-text-yellow w3-large"></i></td>
+              <td>Customer added.</td>
+              <td><i id="last-customer-time">...</i></td>
+            </tr>
+            <tr>
+              <td><i class="fa fa-credit-card w3-text-red w3-large"></i></td>
+              <td>Account withdraw.</td>
+              <td><i id="last-account-withdraw-time">...</i></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <script src="/static/js/edit-deposit.js"></script>
+  </body>
+</html>

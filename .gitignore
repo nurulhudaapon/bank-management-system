@@ -1,5 +1,6 @@
 # Customs
 dev/
+utils/env-setter.js
 # Logs
 logs
 *.log

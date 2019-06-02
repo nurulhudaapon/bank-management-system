@@ -8,5 +8,5 @@ module.exports = function () {
     }
     mongoose.connect(config.get('database.uri'),{ useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false})
         .then(()=> console.log('Conected to MongoDB...'))
-        .catch(()=> console.log('Could not connect to  MongDB...'));
+        .catch(()=> console.log('Could not connect to  MongoDB...'));
 }

@@ -1,0 +1,21 @@
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Raleway", sans-serif;
+}
+.w3-quarter:hover {
+  cursor: pointer;
+  box-shadow: 0 0 9px 0px black;
+}
+input {
+  border: solid 1px darkseagreen;
+  width: 100px;
+  border-radius: 5px;
+  text-align: center;
+  /* font-weight: bold; */
+  border: 3px;
+}
