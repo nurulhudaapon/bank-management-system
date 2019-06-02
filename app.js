@@ -1,3 +1,4 @@
+const config = require('config');
 require('express-async-errors');
 const express = require('express');
 const app = express();
@@ -14,4 +15,4 @@ app.use(error);
 
 const port = process.env.app_port || 8080;
 const host = process.env.app_host || '127.0.0.0';
-app.listen(port, () => console.log('Server running http//:'+host+':'+port));
+app.listen(port, () => console.log('Server running http//:'+host+':'+port + ' in ' + config.get('env') + " mode."));

@@ -1,4 +1,5 @@
 require('express-async-errors');
+const config = require('config');
 const express = require('express');
 const app = express();
 const error = require('./middleware/error');
@@ -16,4 +17,4 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const port = process.env.PORT || 3000;
 const host = process.env.HOST || 'http://localhost'
-app.listen(port, () => console.log('Server started at: ' + host+":"+port));
+app.listen(port, () => console.log('Server started at: ' + host+":"+port + ' in ' + config.get('env')+ " mode."));
