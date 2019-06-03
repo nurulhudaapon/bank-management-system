@@ -13,7 +13,9 @@ block content
                 th Updated
             if accounts.length != 0
                 each n in accounts
-                    tr
+                    - function getColor () {if (n.withdrawn) return 'silver';if (n.matured && !n.withdrawn) return 'chartreuse'; else return null;};
+                    - let rowColor = getColor();
+                    tr(style=`background: ${rowColor};`)
                         td=n.name
                         td=n.acn
                         td
