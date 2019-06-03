@@ -1,10 +1,9 @@
-
+let loader = "<div style='margin: 0 auto;' class='loader'></div>"
+const bc = document.querySelector('#body-content');
 function main(url, id) {
     async function submitter(url, data) {
-        const bc = document.querySelector('#body-content');
         $('#exampleModal').modal('show');
-        bc.innerHTML = "<div style='margin: 0 auto;' class='loader'></div>"
-
+        bc.innerHTML = loader
         const option = { method: 'POST', body: data }
         try {
             const res = await fetch(url, option);
@@ -36,9 +35,8 @@ main('/api/withdraw', 'withdraw-form')
 
 function sendEdit(url, id) {
     async function editSubmitter(url, data) {
-        const bc = document.querySelector('#body-content');
         $('#exampleModal').modal('show');
-        bc.innerHTML = "<div style='margin-left: 38%;' class='loader'></div>"
+        bc.innerHTML = loader
 
         const option = { method: 'PUT', body: data }
         try {       

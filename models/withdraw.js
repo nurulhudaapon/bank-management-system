@@ -13,8 +13,9 @@ const Withdraw = mongoose.model(config.get('database.withdraw'), new mongoose.Sc
     wBy: {type: String, required: true},
     date: {type: Date, required: true},
     // balance: {type: Number, required: true},
-    amount: {type: Number, required: true},
-    charge: {type: Number, required: true}
+    balance: {type: Number, required: true},
+    charge: {type: Number, required: true},
+    amount: {type: Number, required: true}
 }));
 
 // Joi validation
