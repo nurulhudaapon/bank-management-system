@@ -22,10 +22,9 @@ function w3_close() {
     overlayBg.style.display = "none";
 }
 function changeTo(c) {
+    const container = document.getElementById('content');
     w3_close();
-    document.getElementById('content').innerHTML = `<iframe width="100%" height="873px" frameborder='no' src=/${c}>`
-}
-
-function changeToP() {
-    document.getElementById('content').innerHTML = contentp;
+    container.innerHTML = '<div id="loaderContainer" style="position: fixed;z-index: 99999;top: 0;left: 0;width: 100%;height: 100%;background-color: #ebebeb;display: flex;justify-content: center;align-items: center;background: rgba(0, 0, 0, .5);"><div class="loader"></div></div>'
+    container.innerHTML = `<iframe width="100%" height="873px" frameborder='no' src=/${c}>`
+        
 }

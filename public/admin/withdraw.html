@@ -4,9 +4,9 @@
 <head>
     <!-- Required meta tags-->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/form.css">
     <title>Bank-PONSRIK</title>
 </head>
@@ -35,13 +35,8 @@
     <div class="container">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab"
-                    data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home"
-                    aria-selected="true">Withdraw</a>
-                <!-- <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-                    aria-controls="nav-profile" aria-selected="false" onclick="getCustomers()">Account</a>
-                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
-                    aria-controls="nav-contact" aria-selected="false">Customer</a> -->
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                    aria-controls="nav-home" aria-selected="true">Withdraw</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -55,8 +50,8 @@
                             <div class="form-content">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group"><select name="acn" class="form-control" id="matured-account"
-                                                onchange="myFunction(event)">
+                                        <div class="form-group"><select name="acn" class="form-control"
+                                                id="matured-account" onchange="fillName(event, 'w-by')">
                                                 <option hidden selected disabled>Loading matured accounts...</option>
 
                                             </select></div>
@@ -89,85 +84,10 @@
                             </div>
                         </div>
                     </form>
-                    <script>function myFunction(e) {
-                            document.getElementById("w-by").value = e.target.innerText.split('account')[1].split(' - ')[0]
-                        }</script>
-                </div>
-            </div>
-            <!-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <div class="bo" style="border: 1px solid #dee2e6;border-top: none;"><br>
-                    <form class="cform" id="account-form">
-                        <div class="container register-form">
-                            <div class="note">
-                                <p>Create New Account</p>
-                            </div>
-                            <div class="form-content">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <select class="form-control" name="customer" id="customer">
-                                                <option hidden selected disabled>Loading customers...</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group"><input class="form-control" name="date" type="date"
-                                                placeholder="Account Opening Date" value="" id="date"></div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group"><input class="form-control" name="min" type="number"
-                                                placeholder="Minimum Deposit" value="" id="min"></div>
-                                        <div class="form-group"><input class="form-control" name="total" type="number"
-                                                placeholder="Total Deposit" value="" id="total"></div>
-                                    </div>
-                                </div><button class="btnSubmit" type="submit">Submit</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                <div class="bo" style="border: 1px solid #dee2e6;border-top: none;"><br>
-                    <form class="cform" id="customer-form">
-                        <div class="container register-form">
-                            <div class="note">
-                                <p>Create New Customer</p>
-                            </div>
-                            <div class="form-content">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group"><input class="form-control" name="name" type="text"
-                                                placeholder="Full Name *" value="" id="name"></div>
-                                        <div class="form-group"><input class="form-control" name="phone" type="text"
-                                                placeholder="Phone Number *" value="01" id="phone"
-                                                pattern="[0]{1}[1]{1}[1|3|5|6|7|8|9]{1}[0-9]{8}"></div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group"><input class="form-control" name="address" type="text"
-                                                placeholder="Address" value="" id="address"></div>
-                                        <div class="form-group"><input class="form-control" name="date" type="date"
-                                                placeholder="Account Opening Date" value="" id="date"></div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="input-group"><input class="form-control" name="email" type="email"
-                                                placeholder="Email" id="email" disabled><span
-                                                class="input-group-append"><input type="checkbox" id="email-radio"
-                                                    onClick="toggle('email-radio', 'email')" value="1"
-                                                    style="width: 38px;height: 38px;"></span></div>
-                                    </div>
-                                </div><br><button class="btnSubmit" type="submit">Submit</button>
-                            </div>
-                        </div>
-                    </form>
                     <script>
-                        function toggle(checkboxID, toggleID) {
-                            var checkbox = document.getElementById(checkboxID);
-                            var toggle = document.getElementById(toggleID);
-                            updateToggle = checkbox.checked ? toggle.disabled = false : toggle.disabled = true;
-                        }
                     </script>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
     <script src="/static/js/send-form.js"></script>
@@ -182,9 +102,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

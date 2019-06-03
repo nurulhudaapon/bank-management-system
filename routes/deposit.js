@@ -71,14 +71,14 @@ router.post('/', upload.none(), async (req, res) => {
 
 // Getting user
 router.get('/', async (req, res) => {
-    const result = await Deposit.find();
-    res.send(result);
+    const result = await Deposit.find().sort({date: -1});
+    res.json(result);
 });
 
 // Deleting user
 router.delete('/:acn', async (req, res) => {
     const result = await Deposit.deleteOne({ acn: req.params.acn });
-    res.send(result);
+    res.json(result);
 });
 
 // Updating user

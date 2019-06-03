@@ -101,3 +101,20 @@ async function prefillAccountEdit() {
 
 
 }
+
+function fillName(s, d) {
+    document.getElementById(d).value = s.target.value.split(' - ')[0];
+    console.log(s.target.value);
+    
+}
+
+function setCurrentDateTime(id) {
+    document.getElementById(id).value = new Date(Date.now()+2.16e+7).toISOString().slice(0, -8);
+    // console.log(me.value);
+}
+
+function toggle(checkboxID, toggleID) {
+    var checkbox = document.getElementById(checkboxID);
+    var toggle = document.getElementById(toggleID);
+    updateToggle = checkbox.checked ? toggle.disabled = false : toggle.disabled = true;
+}
