@@ -28,7 +28,8 @@ router.post('/', upload.none(), async (req, res) => {
     
     const withdraw = new Withdraw(withdrawInfo);
     const result = await withdraw.save();
-    res.json(result);
+
+    res.json({message: 'Account has been successfully withdrawn. Pay: ' + withdrawInfo.amount-withdrawInfo.charge +' TK'});
 });
 
 // Getting withdraw

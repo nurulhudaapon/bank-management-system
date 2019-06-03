@@ -7,7 +7,9 @@ block content
                 th Name
                 th ACN
                 th Current
+                th Min
                 th Total
+                th Status
                 th Updated
             if accounts.length != 0
                 each n in accounts
@@ -16,14 +18,21 @@ block content
                         td=n.acn
                         td
                             h5=n.current+' Taka'
+                        td=n.min+' Taka'
                         td=n.total+' Taka'
+                        if n.matured && n.withdrawn
+                            td Withdrawn
+                        if n.matured && !n.withdrawn
+                            td Matured
+                        if !n.matured && !n.withdrawn
+                            td Running
                         td=n.lastUpdated.toDateString()
                 - class Accounts extends Array { sum(key) {return this.reduce((a, b) => a + (b[key] || 0), 0);}}
                 - const accountsTotalCurrent = new Accounts(...accounts);
                 
                 tr.header
-                    td(colspan='5')
+                    td(colspan='7')
                         h3=`Total ${accountsTotalCurrent.sum('current')} Taka`
             else
                 tr
-                    td(colspan='5') No accounts yet
+                    td(colspan='7') No accounts yet

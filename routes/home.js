@@ -46,9 +46,11 @@ router.get('/myaccount', async (req, res) => {
     }
     if (query.length == 6) {
         
-        const result = await Account.findOne({acn: query}).select('-__v -_id').populate('deposits', '-__v -_id');
+        const result = await Account.findOne({acn: query}).select('-__v -_id').populate({path: 'deposits', select: '-__v -_id', options: { sort: { 'date': -1 } }});
         if (!result) return res.status(404).send('No account found.')
         res.render('user/account', {result});
+        // console.log(result);
+        
     }
 });
 

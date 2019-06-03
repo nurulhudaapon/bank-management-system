@@ -27,12 +27,11 @@ router.post('/', admin, upload.none(), async (req, res) => {
     
     account.acn = `${customer.id}${customer.accounts.length.toString().padStart(3, 0)}`;
     account.owner = customer._id;
-    console.log(account.owner);
-    
 
+    
     const result = await account.save();
 
-    res.json(result);
+    res.json({message: 'SUCCESS! Your ACN: ' + result.acn});
 });
 
 // Getting account

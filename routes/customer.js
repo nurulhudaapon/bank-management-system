@@ -31,8 +31,8 @@ router.post('/', upload.none(), async (req, res) => {
     await checkUniqueId()
     
     const customer = new Customer(customerInfo);
-    const result = await customer.save();
-    res.json(result);
+    let result = await customer.save();
+    res.json({message: 'SUCCESS! Your ID: ' + result.id});
 });
 
 // Getting user

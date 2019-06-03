@@ -12,6 +12,7 @@
         "secure": "",
         "service": "",
         "host": "",
+        "from": "Bank-PONSRIK <bank-deposit@ponsrik.cf>",
         "auth": {
             "user": "",
             "pass": ""

@@ -6,7 +6,7 @@ const Joi = require('joi');
 const Customer = mongoose.model(config.get('database.customer'), new mongoose.Schema({
     name: {type: String, required: true},
     phone: {type: String, required: true},
-    email: {type: String},
+    email: {type: String, default: null},
     address: {type: String, required: true},
     id: {type: String, required: true, unique: true},
     date: {type: Date, default: Date.now},

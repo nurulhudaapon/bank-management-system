@@ -45,13 +45,24 @@ router.post('/', upload.none(), async (req, res) => {
 
     const result = await deposit.save();
 
-    res.json(result);
+
+    res.json({message: 'SUCCESS! Amount Added: ' + result.amount + ' TK. Current balance: ' + account.current +' TK'});
 
     let { email } = await Customer.findOne({ id: account.id }).select('email');
     if (email) {
         let html = `Hi ${deposit.name}, <strong>${deposit.amount} Taka</strong>  has been deposited to your account <strong>(ACN: ${deposit.acn})</strong> by <strong>${deposit.dBy}</strong> to <strong>${deposit.dTo}</strong> on <strong>${deposit.date.toDateString()}</strong>.
         Your current account balance is ${account.current} Taka.`
         let sub = 'New Deposit!'
+
+        let info = await sendMail(email, sub, html);
+    }
+    console.log(email, account.matured);
+    
+    if (email && account.matured) {
+        console.log("matured");
+        
+        let html = `Hi ${deposit.name}, your account <strong>(ACN: ${deposit.acn}) has been matured on <strong>${deposit.date.toDateString()}</strong>.`
+        let sub = 'Account Matured!'
 
         let info = await sendMail(email, sub, html);
     }

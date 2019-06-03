@@ -1,36 +1,4 @@
 
-// Get the Sidebar
-var mySidebar = document.getElementById("mySidebar");
-
-// Get the DIV with overlay effect
-var overlayBg = document.getElementById("myOverlay");
-
-// Toggle between showing and hiding the sidebar, and add overlay effect
-function w3_open() {
-    if (mySidebar.style.display === 'block') {
-        mySidebar.style.display = 'none';
-        overlayBg.style.display = "none";
-    } else {
-        mySidebar.style.display = 'block';
-        overlayBg.style.display = "block";
-    }
-}
-
-// Close the sidebar with the close button
-function w3_close() {
-    mySidebar.style.display = "none";
-    overlayBg.style.display = "none";
-}
-
-
-
-
-
-
-
-
-
-
 let contentp;
 var customer = document.getElementById('customer');
 var account = document.getElementById('account');
@@ -78,28 +46,28 @@ async function run2() {
     // - info.deposits[info.deposits.length - 1].date
     // console.log(info.deposits[info.deposits.length - 1]);
 
-    contentp =document.getElementById('content').innerHTML
+    // contentp =document.getElementById('content').innerHTML
 
 }
 run2();
 
 
-function changeTo(c) {
-    w3_close();
-    document.getElementById('content').innerHTML = `<iframe width="100%" height="873px" frameborder='no' src=/${c}>`
-}
+// function changeTo(c) {
+//     // w3_close();
+//     document.getElementById('content').innerHTML = `<iframe width="100%" height="873px" frameborder='no' src=/${c}>`
+// }
 
-function changeToP() {
-    document.getElementById('content').innerHTML = contentp;
-}
+// // function changeToP() {
+// //     document.getElementById('content').innerHTML = contentp;
+// // }
 
-let tr = document.getElementById('tr');
-function changeToD() {
+// // let tr = document.getElementById('tr');
+// // function changeToD() {
 
-    editDeposit();
-}
+// //     editDeposit();
+// // }
 
-// --------------------------------------------
+// // --------------------------------------------
 
 
 
