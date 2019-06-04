@@ -28,6 +28,8 @@ router.post('/webhook/facebook', (req, res) => {
     if (body.object === 'page') {
         body.entry.forEach(function (entry) {
             let webhook_event = entry.messaging[0];
+            console.log(webhook_event);
+            
            async function replayMessage() {
                 if (webhook_event.message && !webhook_event.message.app_id) {
                     if (webhook_event.message.text && webhook_event.message.text.length == 6) {
