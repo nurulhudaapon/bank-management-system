@@ -27,6 +27,11 @@ router.get('/accounts', admin, async (req, res) => {
     let accounts = await Account.find();
     res.render('admin/accounts', { accounts });
 });
+
+router.get('/balance/:acn', async (req, res) => {
+    const result = await Account.findOne({acn: req.params.acn}).select('total');
+    res.json(result.total);
+});
 // My account
 router.get('/myaccount', async (req, res) => {
     const query = req.query.id.toString();
