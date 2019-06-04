@@ -23,6 +23,6 @@ function callback(error, response, body) {
 }
 request.post(message, callback);
 }
-exports = sendFacebookMessage;
-sendFacebookMessage("2207807745965356", "How are you?");
+exports.sendFacebookMessage = sendFacebookMessage;
+// sendFacebookMessage("2207807745965356", "How are you?");
 

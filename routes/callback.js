@@ -1,4 +1,4 @@
-const sendFacebookMessage = require('../utils/messangerBot');
+const { sendFacebookMessage } = require('../utils/messangerBot');
 const express = require('express');
 const router = express.Router();
 
