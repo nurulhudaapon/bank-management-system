@@ -48,12 +48,9 @@ router.post('/webhook/facebook', (req, res) => {
             // will only ever contain one message, so we get index 0
             let webhook_event = entry.messaging[0];
             console.log(webhook_event);
-            console.log('ID:' + webhook_event.sender.id + ' Text: ' + webhook_event.message.text);
-
-            sendFacebookMessage('314676126112441', "Thank you for messaging us");
-
+            // console.log('ID:' + webhook_event.sender.id + ' Text: ' + webhook_event.message.text); 
         });
-
+        sendFacebookMessage('2207807745965356', "Thank you for messaging us");
         // Returns a '200 OK' response to all requests
         res.status(200).send('EVENT_RECEIVED');
     } else {
