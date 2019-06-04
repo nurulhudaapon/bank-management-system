@@ -50,7 +50,7 @@ router.post('/webhook/facebook', (req, res) => {
             console.log('ID:' + webhook_event.sender.id);
             if (webhook_event.sender.id == '2207807745965356'){
                 console.log("Nurul huda sent message");
-                console.log(webhook_event);
+                console.log(webhook_event.sender.message.text);
                 
                 // sendFacebookMessage('2207807745965356', "Thank you for messaging us");
                 
