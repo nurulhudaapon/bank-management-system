@@ -8,5 +8,8 @@
             "user": "bp_email_user",
             "pass": "bp_email_pass"
         }
+    },
+    "facebook": {
+        "access_token": "bp_facebook_access_token"
     }
 }

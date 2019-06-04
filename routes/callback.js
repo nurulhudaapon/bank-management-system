@@ -1,9 +1,12 @@
+const sendFacebookMessage = require('../utils/messangerBot');
 const express = require('express');
 const router = express.Router();
 
 router.use(express.json());
 
 router.get('/webhook/facebook', (req, res) => {
+    console.log('request recived');
+    
       // Your verify token. Should be a random string.
   let VERIFY_TOKEN = "bp"
     
@@ -24,12 +27,14 @@ router.get('/webhook/facebook', (req, res) => {
     
     } else {
       // Responds with '403 Forbidden' if verify tokens do not match
-      res.sendStatus(403);      
+      res.status(404).send('Invalid request');     
     }
   }
 });
 
 router.post('/webhook/facebook', (req, res) => {
+    console.log('request recived');
+
      
   let body = req.body;
 
@@ -43,13 +48,18 @@ router.post('/webhook/facebook', (req, res) => {
       // will only ever contain one message, so we get index 0
       let webhook_event = entry.messaging[0];
       console.log(webhook_event);
+      const id = webhook_event.sender.id
+      const message = webhook_event.message.text;
+      if (message) {
+        sendFacebookMessage(id, "Thank you for messaging us");
+      }
     });
 
     // Returns a '200 OK' response to all requests
     res.status(200).send('EVENT_RECEIVED');
   } else {
     // Returns a '404 Not Found' if event is not from a page subscription
-    res.sendStatus(404);
+    res.status(404).send('Invalid request');
   }
 });
 
