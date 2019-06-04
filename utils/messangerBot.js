@@ -9,7 +9,24 @@ function sendFacebookMessage (id, messageText) {
           "id": id
         },
         "message":{
-          "text": messageText
+          "text": messageText,
+          "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"Account Balance",
+              "payload":"ac_balance",
+            },
+            {
+              "content_type":"text",
+              "title":"Last Deposit",
+              "payload":"last_dps",
+            },
+            {
+              "content_type":"text",
+              "title":"Others",
+              "payload":"others",
+            }
+          ]
         }
       },
     headers: {
