@@ -6,6 +6,7 @@ const deposit = require('../routes/deposit');
 const addNew = require('../routes/addNew');
 const statistics = require('../routes/statistics');
 const withdraw = require('../routes/withdraw');
+const callback = require('../routes/callback');
 
 module.exports = function (app) {
     // Assigning routes
@@ -16,4 +17,5 @@ module.exports = function (app) {
     app.use('/api/deposit', deposit);
     app.use('/api/statistics', statistics);
     app.use('/api/withdraw', withdraw);
+    app.use('/callback', callback)
 }
