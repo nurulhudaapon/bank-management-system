@@ -35,7 +35,7 @@ function sendFacebookMessage (id, messageText) {
       json: true
 };
 function callback(error, response, body) {
-    console.log(body);
+    console.log('Messge sent!');
 
 }
 request.post(message, callback);
