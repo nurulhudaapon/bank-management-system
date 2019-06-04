@@ -28,7 +28,7 @@ router.post('/webhook/facebook', (req, res) => {
     if (body.object === 'page') {
         body.entry.forEach(function (entry) {
             let webhook_event = entry.messaging[0];
-            function replayMessage() {
+           async function replayMessage() {
                 if (webhook_event.message && !webhook_event.message.app_id) {
                     if (webhook_event.message.text && webhook_event.message.text.length == 6) {
                         const result = await Account.findOne({ acn: webhook_event.message.text }).select('total');
@@ -39,6 +39,7 @@ router.post('/webhook/facebook', (req, res) => {
                     sendFacebookMessage(webhook_event.sender.id, "Thank you for messaging us. What do you want to know from us? If you want to know your account balance just send your account number.");
                 }
             }
+            replayMessage();
         });
         res.status(200).send('EVENT_RECEIVED');
     } else {
