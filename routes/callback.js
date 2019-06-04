@@ -47,14 +47,11 @@ router.post('/webhook/facebook', (req, res) => {
             // will only ever contain one message, so we get index 0
             let webhook_event = entry.messaging[0];
             // console.log(webhook_event);
-            console.log('ID:' + webhook_event.sender.id);
-            console.log(webhook_event.message.text);
+            // console.log('ID:' + webhook_event.sender.id);
             console.log(webhook_event);
-            if (webhook_event.sender.id == '2207807745965356'){
-                console.log("Nurul huda sent message");
-                
-                
-                // sendFacebookMessage('2207807745965356', "Thank you for messaging us");
+            if (webhook_event.message.text){
+                // console.log("Nurul huda sent message");
+                sendFacebookMessage(webhook_event.sender.id, "Thank you for messaging us. What do you want to know from us?");
                 
             }
         });
