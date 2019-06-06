@@ -13,7 +13,10 @@ const Customer = mongoose.model(config.get('database.customer'), new mongoose.Sc
     accounts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: config.get('database.account')
-    }]
+    }],
+    facebook: {
+        type: Object
+    }
     }));
 
 // Joi validation
