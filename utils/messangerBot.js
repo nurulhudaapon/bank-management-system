@@ -23,8 +23,8 @@ function sendFacebookMessage(id, messageText) {
                 //     },
                 //     {
                 //         "content_type": "text",
-                //         "title": "Last Deposit",
-                //         "payload": "last_dps",
+                //         "title": "Account Details",
+                //         "payload": "acn_dtls",
                 //     },
                 //     {
                 //         "content_type": "text",

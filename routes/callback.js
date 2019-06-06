@@ -33,8 +33,8 @@ router.post('/webhook/facebook', (req, res) => {
            async function replayMessage() {
                 if (webhook_event.message && !webhook_event.message.app_id) {
                     if (webhook_event.message.text && webhook_event.message.text.length == 6) {
-                        const result = await Account.findOne({ acn: webhook_event.message.text }).select('current');
-                        sendFacebookMessage(webhook_event.sender.id, "Your account balance is: " + result.current +' Taka.');
+                        const result = await Account.findOne({ acn: webhook_event.message.text });
+                        sendFacebookMessage(webhook_event.sender.id, `Your account (ACN: ${result.acn}, Name: ${result.name}) balance is: ${result.current} Taka.`);
                         return;
                     }
                     // if (webhook_event.message.quick_reply) {}
