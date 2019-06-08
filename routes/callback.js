@@ -29,13 +29,13 @@ router.post('/webhook/facebook', (req, res) => {
     if (body.object === 'page') {
         body.entry.forEach(function (entry) {
             let webhook_event = entry.messaging[0];
-            console.log(webhook_event);
-            
-           async function replayMessage() {
+            // console.log(webhook_event);
+
+            async function replayMessage() {
                 if (webhook_event.message && !webhook_event.message.app_id) {
                     if (webhook_event.message.text && webhook_event.message.text.length == 6) {
                         const result = await Account.findOne({ acn: webhook_event.message.text });
-                        
+
                         sendFacebookMessage(webhook_event.sender.id, `Your account (ACN: ${result.acn}, Name: ${result.name}) balance is: ${result.current} Taka.`);
                         return;
                     }
@@ -43,16 +43,17 @@ router.post('/webhook/facebook', (req, res) => {
                     if (webhook_event.message.text && webhook_event.message.text.split(' ')[0] == 'SPN') {
                         const customer = await Customer.updateOne({ id: webhook_event.message.text.split(' ')[1] }, {
                             $set: {
-                                facebook: {psid: webhook_event.sender.id}
+                                facebook: { psid: webhook_event.sender.id }
                             }
-                        }, {new: true});
+                        }, { new: true });
+                        console.log(webhook_event.message.text.split(' ')[1], customer);
                         
                         sendFacebookMessage(webhook_event.sender.id, `You will be recieving notification for the account bellow:
                         Name: ${customer.name}, 
                         ID: ${customer.id},
                         FB PSID: ${customer.psid}`);
                         console.log('SPN REG');
-                        
+
                         return;
                     }
                     // if (webhook_event.message.quick_reply) {}
