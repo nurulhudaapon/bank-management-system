@@ -42,6 +42,9 @@ router.post('/webhook/facebook', (req, res) => {
                     const psid = event.sender.id;
                     const cmnd = event.message.text.split(' ')[0];
                     const info = event.message.text.split(' ')[1];
+                    
+                    console.log(cmnd, info, psid, event);
+                    
                     switch (cmnd) {
                         case 'GAB':
                             const accountB = await Account.findOne({ acn: info });
