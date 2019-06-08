@@ -25,7 +25,7 @@ router.get('/webhook/facebook', (req, res) => {
 });
 
 const messageText = {
-    facebook:{
+    facebook: {
         default: "Thank you for messaging us. What do you want to know from us? If you want to know your account balance just send your account number."
     }
 }
@@ -43,26 +43,15 @@ router.post('/webhook/facebook', (req, res) => {
                     const cmnd = event.message.text.split(' ')[0];
                     const info = event.message.text.split(' ')[1];
                     switch (cmnd) {
-                        case 'UPN':
-                            const customer = await Customer.findOneAndUpdate({ id: info }, {
-                                $set: {
-                                    facebook: { psid: null }
-                                }
-                            });
-                            sendFBMessage(psid,
-                                `You will not be recieving notification anymore for the account bellow:
-                                Name: ${customer.name},
-                                ID: ${customer.id}`);
-                            break;
                         case 'GAB':
-                            const account = await Account.findOne({ acn: info });
-                            sendFBMessage(psid, `Your account (ACN: ${account.acn}, Name: ${account.name}) balance is: ${account.current} Taka.`);
+                            const accountB = await Account.findOne({ acn: info });
+                            sendFBMessage(psid, `Your accountB (ACN: ${accountB.acn}, Name: ${accountB.name}) balance is: ${accountB.current} Taka.`);
                             break;
                         case 'GAS':
                             const account = await Account.findOne({ acn: info });
                             sendFBMessage(psid,
                                 `Full account info bellow:
-                                 ${JSON.stringify(account)}`);
+                                    ${JSON.stringify(account)}`);
                             break;
                         case 'SPN':
                             const customer = await Customer.findOneAndUpdate({ id: info }, {
@@ -72,11 +61,22 @@ router.post('/webhook/facebook', (req, res) => {
                             });
                             sendFBMessage(psid,
                                 `You will be recieving notification for the account bellow:
-                                Name: ${customer.name},
-                                ID: ${customer.id},
-                                FB PSID: ${customer.facebook.psid}`);
+                                            Name: ${customer.name},
+                                            ID: ${customer.id},
+                                            FB PSID: ${customer.facebook.psid}`);
                             break;
 
+                        case 'UPN':
+                            const customerU = await customerU.findOneAndUpdate({ id: info }, {
+                                $set: {
+                                    facebook: { psid: null }
+                                }
+                            });
+                            sendFBMessage(psid,
+                                `You will not be recieving notification anymore for the account bellow:
+                                                    Name: ${customerU.name},
+                                                    ID: ${customerU.id}`);
+                            break;
                         default:
                             sendFBMessage(psid, messageText.facebook.default);
                             break;
