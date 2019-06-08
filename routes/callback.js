@@ -76,7 +76,7 @@ router.post('/webhook/facebook', (req, res) => {
                             break;
 
                         case 'UPN':
-                            const customerU = await customerU.findOneAndUpdate({ id: info }, {
+                            const customerU = await Customer.findOneAndUpdate({ id: info }, {
                                 $set: {
                                     facebook: { psid: null }
                                 }
