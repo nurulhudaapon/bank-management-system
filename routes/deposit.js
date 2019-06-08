@@ -66,7 +66,7 @@ router.post('/', upload.none(), async (req, res) => {
         if (customer.facebook.psid) {
             sendFacebookMessage(
                 customer.facebook.psid,
-                `Hi ${deposit.name}, <strong>${deposit.amount} Taka</strong>  has been deposited to your account <strong>(ACN: ${deposit.acn})</strong> by <strong>${deposit.dBy}</strong> to <strong>${deposit.dTo}</strong> on <strong>${deposit.date.toDateString()}</strong>.
+                `Hi ${deposit.name}, ${deposit.amount} Taka has been deposited to your account (ACN: ${deposit.acn}) by ${deposit.dBy} to ${deposit.dTo} on <strong>${deposit.date.toDateString()}.
         Your current account balance is ${account.current} Taka.`
                 );
 
@@ -74,13 +74,13 @@ router.post('/', upload.none(), async (req, res) => {
     }
 
     
-    if (email && account.matured) {
+    if (customer.email && account.matured) {
         console.log("matured");
         
         let html = `Hi ${deposit.name}, your account <strong>(ACN: ${deposit.acn}) has been matured on <strong>${deposit.date.toDateString()}</strong>.`
         let sub = 'Account Matured!'
 
-        let info = await sendMail(email, sub, html);
+        let info = await sendMail(customer.email, sub, html);
     }
     
 });

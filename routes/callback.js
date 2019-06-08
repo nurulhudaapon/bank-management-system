@@ -1,4 +1,4 @@
-const { sendFacebookMessage } = require('../utils/messangerBot');
+const { sendFacebookMessage: sendFBMessage } = require('../utils/messangerBot');
 const express = require('express');
 const router = express.Router();
 
@@ -24,40 +24,63 @@ router.get('/webhook/facebook', (req, res) => {
     }
 });
 
+const messageText = {
+    facebook:{
+        default: "Thank you for messaging us. What do you want to know from us? If you want to know your account balance just send your account number."
+    }
+}
+
 router.post('/webhook/facebook', (req, res) => {
     let body = req.body;
     if (body.object === 'page') {
         body.entry.forEach(function (entry) {
-            let webhook_event = entry.messaging[0];
-            // console.log(webhook_event);
+            let event = entry.messaging[0];
 
             async function replayMessage() {
-                if (webhook_event.message && !webhook_event.message.app_id) {
-                    if (webhook_event.message.text && webhook_event.message.text.length == 6) {
-                        const result = await Account.findOne({ acn: webhook_event.message.text });
+                if (event.message && !event.message.app_id) {
 
-                        sendFacebookMessage(webhook_event.sender.id, `Your account (ACN: ${result.acn}, Name: ${result.name}) balance is: ${result.current} Taka.`);
-                        return;
-                    }
-                    // if (webhook_event.message.quick_reply) {}
-                    if (webhook_event.message.text && webhook_event.message.text.split(' ')[0] == 'SPN') {
-                        const customer = await Customer.findOneAndUpdate({ id: webhook_event.message.text.split(' ')[1] }, {
-                            $set: {
-                                facebook: { psid: webhook_event.sender.id }
-                            }
-                        });
-                        console.log(webhook_event.message.text.split(' ')[1], customer);
-                        
-                        sendFacebookMessage(webhook_event.sender.id, `You will be recieving notification for the account bellow:
-                        Name: ${customer.name}, 
-                        ID: ${customer.id},
-                        FB PSID: ${customer.facebook.psid}`);
-                        console.log('SPN REG');
+                    const psid = event.sender.id;
+                    const cmnd = event.message.text.split(' ')[0];
+                    const info = event.message.text.split(' ')[1];
+                    switch (cmnd) {
+                        case 'UPN':
+                            const customer = await Customer.findOneAndUpdate({ id: info }, {
+                                $set: {
+                                    facebook: { psid: null }
+                                }
+                            });
+                            sendFBMessage(psid,
+                                `You will not be recieving notification anymore for the account bellow:
+                                Name: ${customer.name},
+                                ID: ${customer.id}`);
+                            break;
+                        case 'GAB':
+                            const account = await Account.findOne({ acn: info });
+                            sendFBMessage(psid, `Your account (ACN: ${account.acn}, Name: ${account.name}) balance is: ${account.current} Taka.`);
+                            break;
+                        case 'GAS':
+                            const account = await Account.findOne({ acn: info });
+                            sendFBMessage(psid,
+                                `Full account info bellow:
+                                 ${JSON.stringify(account)}`);
+                            break;
+                        case 'SPN':
+                            const customer = await Customer.findOneAndUpdate({ id: info }, {
+                                $set: {
+                                    facebook: { psid }
+                                }
+                            });
+                            sendFBMessage(psid,
+                                `You will be recieving notification for the account bellow:
+                                Name: ${customer.name},
+                                ID: ${customer.id},
+                                FB PSID: ${customer.facebook.psid}`);
+                            break;
 
-                        return;
+                        default:
+                            sendFBMessage(psid, messageText.facebook.default);
+                            break;
                     }
-                    // if (webhook_event.message.quick_reply) {}
-                    sendFacebookMessage(webhook_event.sender.id, "Thank you for messaging us. What do you want to know from us? If you want to know your account balance just send your account number.");
                 }
             }
             replayMessage();
