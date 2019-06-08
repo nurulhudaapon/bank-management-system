@@ -15,7 +15,15 @@ const { Customer } = require('../models/customer');
 
 // Home
 router.get('/', async (req, res) => {
-    res.render('user/home', {req});
+    let account = await Account.find();
+    let customer = await Customer.find();
+    let info = {account, customer}
+    class Total extends Array { sum(key) {return this.reduce((a, b) => a + (b[key] || 0), 0);}}
+    let total = new Total(...account);
+    info.totalCurrent = total.sum('current')
+    info.accountCount = account.length
+    info.customerCount = customer.length
+    res.render('user/home', {info});
 });
 // Customers
 router.get('/customers', admin, async (req, res) => {

@@ -6,6 +6,15 @@
     color: #fff;
     font-weight: bold;
 }
+.bg-lg-info {
+  background: -webkit-linear-gradient(left, #f03db4, #86d420);
+}
+.bg-lg-warning {
+  background: -webkit-linear-gradient(left, #99aa00, #324e0c);
+}
+.bg-lg-danger {
+  background: -webkit-linear-gradient(left, #ff0808, #86d420);
+}
 input:valid {
     color: green;
   }
