@@ -41,11 +41,11 @@ router.post('/webhook/facebook', (req, res) => {
                     }
                     // if (webhook_event.message.quick_reply) {}
                     if (webhook_event.message.text && webhook_event.message.text.split(' ')[0] == 'SPN') {
-                        const customer = await Customer.updateOne({ id: webhook_event.message.text.split(' ')[1] }, {
+                        const customer = await Customer.findOneAndUpdate({ id: webhook_event.message.text.split(' ')[1] }, {
                             $set: {
                                 facebook: { psid: webhook_event.sender.id }
                             }
-                        }, { new: true });
+                        });
                         console.log(webhook_event.message.text.split(' ')[1], customer);
                         
                         sendFacebookMessage(webhook_event.sender.id, `You will be recieving notification for the account bellow:
