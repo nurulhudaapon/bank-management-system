@@ -65,7 +65,7 @@ router.post('/webhook/facebook', (req, res) => {
                                 $set: {
                                     facebook: { psid }
                                 }
-                            });
+                            }, {new: true});
                             if (!customer) return sendFBMessage(psid, `No customer found with the given id (${info})`)
                             sendFBMessage(psid,
                                 `You will be recieving notification for the account bellow:

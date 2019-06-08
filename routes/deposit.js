@@ -6,7 +6,7 @@ const { Customer } = require('../models/customer');
 const multer = require('multer')
 const upload = multer({ dest: 'public/uploads/' })
 const { sendMail } = require('../utils/mailer');
-const { sendFacebookMessage } = require('../utils/messangerBot');
+const { sendFBMessage } = require('../utils/messangerBot');
 
 
 router.use(express.json());
@@ -48,9 +48,10 @@ router.post('/', upload.none(), async (req, res) => {
     const result = await deposit.save();
 
 
-    res.json({message: 'SUCCESS! Amount Added: ' + result.amount + ' TK. Current balance: ' + account.current +' TK'});
+    res.json({ message: 'SUCCESS! Amount Added: ' + result.amount + ' TK. Current balance: ' + account.current + ' TK' });
 
     let customer = await Customer.findOne({ id: account.id });
+
     if (customer.email) {
         let html = `Hi ${deposit.name}, <strong>${deposit.amount} Taka</strong>  has been deposited to your account <strong>(ACN: ${deposit.acn})</strong> by <strong>${deposit.dBy}</strong> to <strong>${deposit.dTo}</strong> on <strong>${deposit.date.toDateString()}</strong>.
         Your current account balance is ${account.current} Taka.`
@@ -58,36 +59,32 @@ router.post('/', upload.none(), async (req, res) => {
 
         let info = await sendMail(customer.email, sub, html);
     }
-    console.log(customer.facebook.psid);
 
     if (customer.facebook) {
         console.log('FB message sent!');
-
         if (customer.facebook.psid) {
-            sendFacebookMessage(
-                customer.facebook.psid,
+            sendFBMessage(customer.facebook.psid,
                 `Hi ${deposit.name}, ${deposit.amount} Taka has been deposited to your account (ACN: ${deposit.acn}) by ${deposit.dBy} to ${deposit.dTo} on ${deposit.date.toDateString()}.
                 Your current account balance is ${account.current} Taka.`
-                );
-
+            );
         }
     }
 
-    
+
     if (customer.email && account.matured) {
         console.log("matured");
-        
+
         let html = `Hi ${deposit.name}, your account <strong>(ACN: ${deposit.acn}) has been matured on <strong>${deposit.date.toDateString()}</strong>.`
         let sub = 'Account Matured!'
 
         let info = await sendMail(customer.email, sub, html);
     }
-    
+
 });
 
 // Getting user
 router.get('/', async (req, res) => {
-    const result = await Deposit.find().sort({date: -1});
+    const result = await Deposit.find().sort({ date: -1 });
     res.json(result);
 });
 
