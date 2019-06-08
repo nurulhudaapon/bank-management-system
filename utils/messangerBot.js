@@ -45,6 +45,6 @@ function sendFacebookMessage(id, messageText) {
 function getAccountBalance(acn) {
     request.post("https://bank.ponsrik.cf/balacne/", callback);
 }
-exports.sendFacebookMessage = sendFacebookMessage;
+exports.sendFBMessage = sendFacebookMessage;
 // sendFacebookMessage("2207807745965356", "How are you?");
 

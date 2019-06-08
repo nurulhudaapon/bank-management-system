@@ -1,4 +1,4 @@
-const { sendFacebookMessage: sendFBMessage } = require('../utils/messangerBot');
+const { sendFBMessage } = require('../utils/messangerBot');
 const express = require('express');
 const router = express.Router();
 
@@ -35,6 +35,7 @@ router.post('/webhook/facebook', (req, res) => {
     if (body.object === 'page') {
         body.entry.forEach(function (entry) {
             let event = entry.messaging[0];
+            console.log(event);
 
             async function replayMessage() {
                 if (event.message && !event.message.app_id) {
@@ -42,9 +43,9 @@ router.post('/webhook/facebook', (req, res) => {
                     const psid = event.sender.id;
                     const cmnd = event.message.text.split(' ')[0];
                     const info = event.message.text.split(' ')[1];
-                    
+
                     console.log(cmnd, info, psid, event);
-                    
+
                     switch (cmnd) {
                         case 'GAB':
                             const accountB = await Account.findOne({ acn: info });
