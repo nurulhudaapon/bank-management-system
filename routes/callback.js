@@ -35,7 +35,7 @@ router.post('/webhook/facebook', (req, res) => {
     if (body.object === 'page') {
         body.entry.forEach(function (entry) {
             let event = entry.messaging[0];
-            console.log(event);
+            // console.log(event);
 
             async function replayMessage() {
                 if (event.message && !event.message.app_id) {
@@ -49,7 +49,8 @@ router.post('/webhook/facebook', (req, res) => {
                     switch (cmnd) {
                         case 'GAB':
                             const accountB = await Account.findOne({ acn: info });
-                            sendFBMessage(psid, `Your accountB (ACN: ${accountB.acn}, Name: ${accountB.name}) balance is: ${accountB.current} Taka.`);
+                            if (!accountB) return sendFBMessage(psid, `No account found with the given id (${info})`);
+                            sendFBMessage(psid, `Your account (ACN: ${accountB.acn}, Name: ${accountB.name}) balance is: ${accountB.current} Taka.`);
                             break;
                         case 'GAS':
                             const account = await Account.findOne({ acn: info });
@@ -63,11 +64,13 @@ router.post('/webhook/facebook', (req, res) => {
                                     facebook: { psid }
                                 }
                             });
+                            if (!customer) return sendFBMessage(psid, `No customer found with the given id (${info})`)
                             sendFBMessage(psid,
                                 `You will be recieving notification for the account bellow:
-                                            Name: ${customer.name},
-                                            ID: ${customer.id},
-                                            FB PSID: ${customer.facebook.psid}`);
+                                Name: ${customer.name},
+                                ID: ${customer.id},
+                                FB PSID: ${customer.facebook.psid}`);
+
                             break;
 
                         case 'UPN':
@@ -75,11 +78,12 @@ router.post('/webhook/facebook', (req, res) => {
                                 $set: {
                                     facebook: { psid: null }
                                 }
-                            });
+                            }, {new: true});
+                            if (!customerU) return sendFBMessage(psid, `No customer found with the given id (${info})`);
                             sendFBMessage(psid,
                                 `You will not be recieving notification anymore for the account bellow:
-                                                    Name: ${customerU.name},
-                                                    ID: ${customerU.id}`);
+                                Name: ${customerU.name},
+                                ID: ${customerU.id}`);
                             break;
                         default:
                             sendFBMessage(psid, messageText.facebook.default);
