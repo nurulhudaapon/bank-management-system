@@ -26,7 +26,9 @@ router.get('/webhook/facebook', (req, res) => {
 
 const messageText = {
     facebook: {
-        default: "Thank you for messaging us. What do you want to know from us? If you want to know your account balance just send your account number."
+        
+        default: "Thank you for messaging us. What do you want to know from us? If you want to know your account balance just send your account number.",
+        accountBalance: `Your account`
     }
 }
 
@@ -86,7 +88,7 @@ router.post('/webhook/facebook', (req, res) => {
                                 ID: ${customerU.id}`);
                             break;
                         default:
-                            sendFBMessage(psid, messageText.facebook.default);
+                            // sendFBMessage(psid, messageText.facebook.default);
                             break;
                     }
                 }
