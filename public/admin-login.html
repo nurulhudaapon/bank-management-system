@@ -2,10 +2,18 @@
 <html>
 
 <head>
+  <title>Login</title>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <!-- <link rel="stylesheet" href="/static/css/w3.css"> -->
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"> -->
+  <link rel="stylesheet" href="/static/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/main.css">
   <style>
     body {
       font-family: Arial, Helvetica, sans-serif;
+      background: aliceblue;
     }
 
     /* Full-width input fields */
@@ -35,10 +43,14 @@
     }
 
     .container {
-      padding: 16px;
-      text-align: center;
-      width:300px;
-      border: rgba(0, 0, 0, .5)
+    padding: 16px;
+    text-align: center;
+    width: 300px;
+    border-radius: 10px;
+    border: 1px solid rgba(12,100, 0, .5);
+    background-color: #927eff;
+    color: white;
+    box-shadow: 3px 1px 20px 1px black;
     }
 
     span.psw {
@@ -75,24 +87,25 @@
 </head>
 
 <body>
+  <h4 class="bg-lg-danger header rounded-bottom">This login form is only for the authority.</h4>
   <div class="container" style="margin:0 auto">
-  <h2 class="">Admin Login Form</h2>
+    <h2 class="">Admin Login Form</h2>
 
-  <form class="animate" action="/login" method="POST">
+    <form class="animate" action="/login" method="POST">
 
-    <div class="container">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
+      <div class="container0f">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="uname" required>
 
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
 
-      <button type="submit">Login</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
-  </form>
+        <button type="submit">Login</button>
+        <label>
+          <input type="checkbox" name="remember"> Remember me
+        </label>
+      </div>
+    </form>
   </div>
 
 
