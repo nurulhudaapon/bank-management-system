@@ -6,6 +6,8 @@ const { Customer } = require('../models/customer');
 const multer = require('multer')
 const upload = multer({ dest: 'public/uploads/' })
 const { sendMail } = require('../utils/mailer');
+const { sendFacebookMessage } = require('../utils/messangerBot');
+
 
 router.use(express.json());
 
@@ -48,15 +50,29 @@ router.post('/', upload.none(), async (req, res) => {
 
     res.json({message: 'SUCCESS! Amount Added: ' + result.amount + ' TK. Current balance: ' + account.current +' TK'});
 
-    let { email } = await Customer.findOne({ id: account.id }).select('email');
-    if (email) {
+    let customer = await Customer.findOne({ id: account.id }).select('email');
+    if (customer.email) {
         let html = `Hi ${deposit.name}, <strong>${deposit.amount} Taka</strong>  has been deposited to your account <strong>(ACN: ${deposit.acn})</strong> by <strong>${deposit.dBy}</strong> to <strong>${deposit.dTo}</strong> on <strong>${deposit.date.toDateString()}</strong>.
         Your current account balance is ${account.current} Taka.`
         let sub = 'New Deposit!'
 
         let info = await sendMail(email, sub, html);
     }
-    console.log(email, account.matured);
+    console.log(customer.facebook.psid);
+
+    if (customer.facebook) {
+        console.log('FB message sent!');
+
+        if (customer.facebook.psid) {
+            sendFacebookMessage(
+                customer.facebook.psid,
+                `Hi ${deposit.name}, <strong>${deposit.amount} Taka</strong>  has been deposited to your account <strong>(ACN: ${deposit.acn})</strong> by <strong>${deposit.dBy}</strong> to <strong>${deposit.dTo}</strong> on <strong>${deposit.date.toDateString()}</strong>.
+        Your current account balance is ${account.current} Taka.`
+                );
+
+        }
+    }
+
     
     if (email && account.matured) {
         console.log("matured");
