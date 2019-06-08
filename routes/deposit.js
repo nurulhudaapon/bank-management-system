@@ -50,7 +50,7 @@ router.post('/', upload.none(), async (req, res) => {
 
     res.json({message: 'SUCCESS! Amount Added: ' + result.amount + ' TK. Current balance: ' + account.current +' TK'});
 
-    let customer = await Customer.findOne({ id: account.id }).select('email');
+    let customer = await Customer.findOne({ id: account.id });
     if (customer.email) {
         let html = `Hi ${deposit.name}, <strong>${deposit.amount} Taka</strong>  has been deposited to your account <strong>(ACN: ${deposit.acn})</strong> by <strong>${deposit.dBy}</strong> to <strong>${deposit.dTo}</strong> on <strong>${deposit.date.toDateString()}</strong>.
         Your current account balance is ${account.current} Taka.`
