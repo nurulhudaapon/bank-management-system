@@ -51,7 +51,7 @@ router.post('/webhook/facebook', (req, res) => {
                         sendFacebookMessage(webhook_event.sender.id, `You will be recieving notification for the account bellow:
                         Name: ${customer.name}, 
                         ID: ${customer.id},
-                        FB PSID: ${customer.psid}`);
+                        FB PSID: ${customer.facebook.psid}`);
                         console.log('SPN REG');
 
                         return;

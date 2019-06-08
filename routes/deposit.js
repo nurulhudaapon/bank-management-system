@@ -56,7 +56,7 @@ router.post('/', upload.none(), async (req, res) => {
         Your current account balance is ${account.current} Taka.`
         let sub = 'New Deposit!'
 
-        let info = await sendMail(email, sub, html);
+        let info = await sendMail(customer.email, sub, html);
     }
     console.log(customer.facebook.psid);
 
