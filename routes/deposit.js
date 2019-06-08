@@ -65,7 +65,7 @@ router.post('/', upload.none(), async (req, res) => {
         if (customer.facebook.psid) {
             sendFBMessage(customer.facebook.psid,
                 `Hi ${deposit.name}, ${deposit.amount} Taka has been deposited to your account (ACN: ${deposit.acn}) by ${deposit.dBy} to ${deposit.dTo} on ${deposit.date.toDateString()}.
-                Your current account balance is ${account.current} Taka.`
+                Current balance: ${account.current} Taka.`
             );
         }
     }

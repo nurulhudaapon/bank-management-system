@@ -9,6 +9,7 @@ const Account = mongoose.model(config.get('database.account'), new mongoose.Sche
         type: mongoose.Schema.Types.ObjectId,
         ref: config.get('database.customer')
     },
+    type: String,
     id: { type: String, required: true },
     acn: { type: String, required: true, unique: true },
     withdrawn: { type: Boolean, default: false },
