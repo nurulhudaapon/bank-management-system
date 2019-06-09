@@ -1,3 +1,6 @@
+body {
+  background-color: #f4f8fb;
+}
 .loader {
   /* margin: 0 auto; */
   border: 16px solid #ff5858; /* Light grey */

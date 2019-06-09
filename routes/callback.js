@@ -43,24 +43,24 @@ router.post('/webhook/facebook', (req, res) => {
                 if (event.message && !event.message.app_id) {
 
                     const psid = event.sender.id;
-                    const cmnd = event.message.text.split(' ')[0];
+                    const cmnd = event.message.text.split(' ')[0].toLowerCase();
                     const info = event.message.text.split(' ')[1];
 
                     console.log(cmnd, info, psid, event);
 
                     switch (cmnd) {
-                        case 'GAB':
+                        case 'gab':
                             const accountB = await Account.findOne({ acn: info });
                             if (!accountB) return sendFBMessage(psid, `No account found with the given id (${info})`);
                             sendFBMessage(psid, `Your account (ACN: ${accountB.acn}, Name: ${accountB.name}) balance is: ${accountB.current} Taka.`);
                             break;
-                        case 'GAS':
+                        case 'gab':
                             const account = await Account.findOne({ acn: info });
                             sendFBMessage(psid,
                                 `Full account info bellow:
                                     ${JSON.stringify(account)}`);
                             break;
-                        case 'SPN':
+                        case 'spn':
                             const customer = await Customer.findOneAndUpdate({ id: info }, {
                                 $set: {
                                     facebook: { psid }
@@ -75,7 +75,7 @@ router.post('/webhook/facebook', (req, res) => {
 
                             break;
 
-                        case 'UPN':
+                        case 'upn':
                             const customerU = await Customer.findOneAndUpdate({ id: info }, {
                                 $set: {
                                     facebook: { psid: null }
