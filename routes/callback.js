@@ -54,7 +54,7 @@ router.post('/webhook/facebook', (req, res) => {
                             if (!accountB) return sendFBMessage(psid, `No account found with the given id (${info})`);
                             sendFBMessage(psid, `Your account (ACN: ${accountB.acn}, Name: ${accountB.name}) balance is: ${accountB.current} Taka.`);
                             break;
-                        case 'gab':
+                        case 'gas':
                             const account = await Account.findOne({ acn: info });
                             sendFBMessage(psid,
                                 `Full account info bellow:
