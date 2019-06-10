@@ -1,22 +1,3 @@
-// const config = require('config');
-// require('express-async-errors');
-// const express = require('express');
-// const app = express();
-// app.set('view engine', 'pug');
-// const error = require('./middleware/error');
-
-// var path = require('path');
-// app.use(express.static(path.join(__dirname, 'public')));
-
-// require('./startup/db')();
-// require ('./startup/routes')(app);
-
-// app.use(error);
-
-// const port = process.env.app_port || 8080;
-// const host = process.env.app_host || '127.0.0.0';
-// app.listen(port, () => console.log('Server running http//:'+host+':'+port + ' in ' + config.get('env') + " mode."));
-
 require('express-async-errors');
 const config = require('config');
 const express = require('express');
@@ -32,8 +13,26 @@ require ('./startup/routes')(app);
 
 app.use(error);
 app.use( "/admin", [ admin, express.static(path.join( __dirname, "admin" )) ] );
+app.use( "/admin-beta", [ admin, express.static(path.join( __dirname, "admin-beta" )) ] );
 app.use(express.static(path.join(__dirname, 'public')));
 
-const port = process.env.app_port || 8080;
-const host = process.env.app_host || '127.0.0.0';
+function getConfig() {
+    
+    if (app.get('env') == 'development') {
+        console.log(app.get('env'));
+        
+        return {port: process.env.PORT || 3000, host: process.env.HOST || 'http://localhost'}
+    } else {
+        return {port: process.env.app_port || 8080, host: process.env.app_host || '127.0.0.0'}
+
+    }
+}
+console.log(getConfig());
+
+// const port = process.env.app_port || 8080;
+// const host = process.env.app_host || '127.0.0.0';
+
+const port = getConfig().port;
+const host = getConfig().host;
+
 app.listen(port, () => console.log('Server started at: ' + host+":"+port + ' in ' + config.get('env')+ " mode."));
