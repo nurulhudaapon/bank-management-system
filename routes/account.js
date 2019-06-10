@@ -59,7 +59,16 @@ router.get('/', admin, async (req, res) => {
                         total: 1,
                         min: 1,
                         date: { $dateToString: { format: "%d/%m/%Y", date: "$date" } },
-                        current: 1
+                        current: 1,
+                        status: {
+                            $switch: {
+                                branches: [
+                                   { case: "$withdrawn", then: "Withdrawn" },
+                                   { case: "$matured", then: "Matured" },
+                                ],
+                                default: "Running"
+                             }
+                        }
 
                     }
                 }

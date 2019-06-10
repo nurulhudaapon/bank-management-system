@@ -14,9 +14,10 @@ $(document).ready(function () {
         { data: 'total' },
         { data: 'min' },
         { data: 'date' },
-        { data: 'current' }
-    ]
-
+        { data: 'current' },
+        { data: 'status' }
+    ],
+    "oSearch": {"sSearch": "Running"}
   }
   );
 });
