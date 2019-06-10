@@ -13,8 +13,10 @@ router.get('/', admin, async (req, res) => {
     let count = {};
     // let total = {};
     let accounts = await Account.find();
+    let maturedAccountCount = await Account.find({matured: true, withdrawn: false}).count();
+    let withdrawnAccountCount = await Account.find({withdrawn: true}).count();
     let customers = await Customer.find();
-    let deposits = await Deposit.find();
+    let deposits = await Deposit.find().select('date amount -_id');
 
     let sumAccount = await Account
         .aggregate([
@@ -22,21 +24,22 @@ router.get('/', admin, async (req, res) => {
             { $group: { _id: null, sumAccount: { $sum: "$current" } } }
 
         ]);
-
+    count.maturedAccountCount = maturedAccountCount
+    count.withdrawnAccountCount = withdrawnAccountCount
     count.customer = customers.length;
     count.accountCount = accounts.length;
-    count.runningAccountCount = _.filter(accounts, function (o) { if (o.withdrawn == false) return o }).length;
+    count.runningAccountCount = await Account.find({matured: false, withdrawn: false}).count();
     count.depositCount = deposits.length;
-    count.deposits = deposits;
-
+    
     let total = function () {
         if (sumAccount[0]) return sumAccount[0].sumAccount;
         return 0;
     }
     // console.log(total());
     
-
+    
     count.total = total();
+    count.deposits = deposits;
 
     res.json(count);
 });
