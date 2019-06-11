@@ -133,7 +133,8 @@ var myLineChart = new Chart(ctx, {
           maxTicksLimit: 7
         }
       }],
-      yAxes: [{
+      yAxes: [
+        {
         ticks: {
           maxTicksLimit: 5,
           padding: 10,
@@ -142,6 +143,7 @@ var myLineChart = new Chart(ctx, {
             return 'BDT' + number_format(value);
           }
         },
+        
         gridLines: {
           color: "rgb(234, 236, 244)",
           zeroLineColor: "rgb(234, 236, 244)",

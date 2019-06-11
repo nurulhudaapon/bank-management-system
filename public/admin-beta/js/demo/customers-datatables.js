@@ -2,17 +2,23 @@ $(document).ready(function () {
   $('#dataTable').DataTable({
     columns: [
       { data: 'name' },
-      { data: 'acn' },
-      { data: 'total' },
-      { data: 'min' },
+      { data: 'id' },
+      { data: 'phone' },
+      { data: 'address' },
+      { data: 'email' },
       { data: 'date' },
-      { data: 'current' },
-      { data: 'status' }
     ],
-    oSearch: { "sSearch": "Running" },
+    // oSearch: { "sSearch": "Running" },
     ajax: {
-      url: '/api/account?type=for-table-date',
+      url: '/api/customer',
       dataSrc: ''
-    }
+    },
+    "columnDefs": [ {
+      "targets": 5,
+      "data": "date",
+      "render": function ( data, type, row, meta ) {
+        return new Date(data).toLocaleDateString('en-IN');
+      }
+    } ]
   });
 });
