@@ -22,7 +22,9 @@ router.post('/', upload.none(), async (req, res) => {
 
     const deposit = new Deposit(depositInfo);
 
-    let account = await Account.findOne({ acn: deposit.acn });
+    let account = await Account.findOne({ acn: deposit.acn, matured: false, withdrawn: false });
+
+    if (!account) return res.status(406).send(`No account found or the account has been matured.`);
 
     if (deposit.amount < account.min) return res.status(406).send(`Deposit amount (${deposit.amount}) is less then account minimum (${account.min})`);
     function maturityTest(params) {
@@ -82,9 +84,33 @@ router.post('/', upload.none(), async (req, res) => {
 
 });
 
-// Getting user
+// Getting deposit
 router.get('/', async (req, res) => {
     const result = await Deposit.find().sort({ date: -1 });
+    res.json(result);
+});
+router.get('/chart', async (req, res) => {
+    const result = await Deposit.aggregate(
+        [
+        {
+            $project: {
+                day: {$dayOfMonth: "$day"},
+                month: { $month: "$date" },
+                year: {$year: "$date"},
+                amount: 1
+            }
+        },
+        {
+            $group: {
+                _id: {
+                    day: "$day",
+                    month: "$month",
+                    year: "$year"
+                },
+                total : {$sum : "$amount"} 
+            }
+        }]
+    );
     res.json(result);
 });
 

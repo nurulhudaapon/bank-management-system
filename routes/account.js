@@ -45,6 +45,10 @@ router.get('/', admin, async (req, res) => {
         const result = await Account.find({ withdrawn: false }).select('name acn total min matured withdrawn -_id');
         return res.json(result);
     }
+    if (req.query.type == 'running') {
+        const result = await Account.find({ withdrawn: false, matured: false, withdrawn: false }).select('name acn total min matured withdrawn -_id');
+        return res.json(result);
+    }
     if (req.query.type == 'for-table') {
         const result = await Account.find({ withdrawn: false }).select('name acn total min date current -_id');
         return res.json(result);
@@ -54,6 +58,7 @@ router.get('/', admin, async (req, res) => {
             [
                 {
                     $project: {
+                        _id: 0,
                         name: 1,
                         acn: 1,
                         total: 1,

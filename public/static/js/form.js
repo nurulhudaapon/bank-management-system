@@ -18,7 +18,7 @@ document.querySelector('#nav-home-tab').addEventListener('click', getAccounts);
 // document.querySelector('#nav-profile-tab').addEventListener('click', getCustomers);
 
 async function getAccounts() {
-    const accounts = await fetch('/api/account?type=short');
+    const accounts = await fetch('/api/account?type=running');
     const accountList = await accounts.json();
     accountListContainer.innerHTML = '<option hidden selected disabled>Choose account</option>'
     accountList.forEach(element => {
