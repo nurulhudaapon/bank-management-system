@@ -104,7 +104,7 @@ async function getDps(params) {
           borderColor: "yellow",
           pointRadius: 3,
           pointBackgroundColor: "yellow",
-          pointBorderColor: "yellow",
+          pointBorderColor: "black",
           pointHoverRadius: 3,
           pointHoverBackgroundColor: "yellow",
           pointHoverBorderColor: "yellow",
