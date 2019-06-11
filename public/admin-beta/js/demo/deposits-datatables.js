@@ -1,20 +1,19 @@
 $(document).ready(function () {
   $('#dataTable').DataTable({
     columns: [
-      { data: 'name' },
-      { data: 'id' },
-      { data: 'phone' },
-      { data: 'address' },
-      { data: 'email' },
       { data: 'date' },
+      { data: 'name' },
+      { data: 'acn' },
+      { data: 'amount' },
+      { data: 'dBy' },
+      { data: 'dTo' },
     ],
-    // oSearch: { "sSearch": "Running" },
     ajax: {
-      url: '/api/customer',
+      url: '/api/deposit',
       dataSrc: ''
     },
     columnDefs: [ {
-      "targets": 5,
+      "targets": 0,
       "data": "date",
       "render": function ( data, type, row, meta ) {
         return new Date(data).toLocaleDateString('en-IN');
