@@ -5,7 +5,7 @@ async function getData() {
   // console.log(accountInfo);
 
   const infoData = [accountInfo.runningAccountCount, accountInfo.maturedAccountCount, accountInfo.withdrawnAccountCount];
-  console.log(infoData);
+  // console.log(nfoData);
   
   
   // Set new default font family and font color to mimic Bootstrap's default styling
