@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 function getConfig() {
 
     if (app.get('env') == 'development') {
-        return { port: process.env.PORT || 3000, host: process.env.HOST || 'http://localhost' }
+        return { port: process.env.PORT || 5500, host: process.env.HOST || 'http://localhost' }
     } else {
         return { port: process.env.app_port || 8080, host: process.env.app_host || '127.0.0.0' }
     }

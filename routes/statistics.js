@@ -16,7 +16,7 @@ router.get('/', admin, async (req, res) => {
     let maturedAccountCount = await Account.find({matured: true, withdrawn: false}).count();
     let withdrawnAccountCount = await Account.find({withdrawn: true}).count();
     let customers = await Customer.find();
-    let deposits = await Deposit.find().select('date amount -_id');
+    let deposits = await Deposit.find().select('name acn date amount -_id').sort({date: -1});
 
     let sumAccount = await Account
         .aggregate([
