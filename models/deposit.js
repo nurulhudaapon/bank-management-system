@@ -9,6 +9,7 @@ const Deposit = mongoose.model(config.get('database.deposit'), new mongoose.Sche
     date: {type: Date, required: true},
     amount: {type: Number, required: true},
     dBy: {type: String, required: true},
+    // depositor: {type: String, required: true},
     dTo: {type: String, required: true}
 
     }));

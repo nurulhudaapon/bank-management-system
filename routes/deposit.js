@@ -19,7 +19,7 @@ router.post('/', upload.none(), async (req, res) => {
     let depositInfo = req.body;
     depositInfo.name = depositInfo.account.split(' - ')[0];
     depositInfo.acn = depositInfo.account.split(' - ')[1];
-
+    // depositInfo.dBy = depositInfo.depositor;
     const deposit = new Deposit(depositInfo);
 
     let account = await Account.findOne({ acn: deposit.acn, matured: false, withdrawn: false });
