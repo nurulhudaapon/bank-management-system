@@ -31,7 +31,7 @@ async function run2() {
     (Date.now() - new Date(info.deposits[0].date).getTime()) / 1000 / 60
   );
 
-  lastDepositTime.innerText = new Date(info.deposits[0].date).toLocaleTimeString([], {
+  lastDepositTime.innerText = new Date(info.deposits[0].date).toTimeString([], {
     hour: "2-digit",
     minute: "2-digit"
   })
