@@ -109,7 +109,7 @@ function fillName(s, d) {
 }
 
 function setCurrentDateTime(id) {
-    document.getElementById(id).value = new Date(Date.now()+2.16e+7).toISOString().slice(0, -8);
+    document.getElementById(id).value = new Date(Date.now()).toISOString().slice(0, -8);
     // console.log(me.value);
 }
 
