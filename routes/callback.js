@@ -46,7 +46,7 @@ router.post('/webhook/facebook', (req, res) => {
                     const cmnd = event.message.text.split(' ')[0].toLowerCase();
                     const info = event.message.text.split(' ')[1];
 
-                    console.log(cmnd, info, psid, event);
+                    console.log("Command: "+cmnd, info, psid, event);
 
                     switch (cmnd) {
                         case 'gab':
@@ -88,6 +88,8 @@ router.post('/webhook/facebook', (req, res) => {
                                 ID: ${customerU.id}`);
                             break;
                         default:
+                            console.log("Nothing matched.");
+                            
                             // sendFBMessage(psid, messageText.facebook.default);
                             break;
                     }
