@@ -9,7 +9,7 @@ module.exports.sendMail = async function (to, subject, html) {
     console.log('Email sent, Time:' +info.messageTime+', Size: '+info.messageSize+', ID: ' + info.messageId);
   }
   catch (e) {
-    console.log('Errol Mailing: ' + e.response);
+    console.log('Error Mailing: ' + e.response);
   }
 
 }
