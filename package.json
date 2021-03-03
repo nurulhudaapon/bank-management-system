@@ -31,7 +31,7 @@
     "mongoose": "^5.5.4",
     "multer": "^1.4.1",
     "nodemailer": "^6.2.1",
-    "pug": "^2.0.3",
+    "pug": "^3.0.1",
     "request": "^2.88.0",
     "serve-favicon": "^2.5.0"
   }
